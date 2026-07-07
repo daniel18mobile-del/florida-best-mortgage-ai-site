@@ -26,7 +26,7 @@ const {
 
 const canonicalUrl = new URL(canonical ?? Astro.url.pathname, site.url).toString();
 const ogImageUrl = new URL(ogImage, site.url).toString();
-const pageTitle = title === site.name || title.endsWith(`| ${site.name}`) ? title : `${title} | ${site.name}`;
+const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 const serializeJsonLd = (item: Schema) => JSON.stringify(item).replace(/</g, '\\u003c');
 ---
