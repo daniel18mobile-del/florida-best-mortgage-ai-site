@@ -6,6 +6,7 @@ import ServiceGrid from '@components/ServiceGrid.astro';
 import CtaBand from '@components/CtaBand.astro';
 import ContactPanel from '@components/ContactPanel.astro';
 import { site } from '@data/site';
+import { heroMedia, serviceImages } from '@data/media';
 import { mortgageBrokerSchema } from '@utils/schema';
 
 const services = (await getCollection('services'))
@@ -14,7 +15,8 @@ const services = (await getCollection('services'))
     title: service.data.title,
     summary: service.data.summary,
     href: `/services/${service.data.slug}/`,
-    ctaLabel: service.data.ctaLabel
+    ctaLabel: service.data.ctaLabel,
+    image: serviceImages[service.data.slug]
   }));
 ---
 
@@ -31,6 +33,8 @@ const services = (await getCollection('services'))
     primaryLabel="Talk with Maria"
     secondaryHref="/services/"
     secondaryLabel="Explore loan options"
+    videoSrc={heroMedia.videoSrc}
+    posterSrc={heroMedia.posterSrc}
   />
 
   <ServiceGrid

@@ -4,6 +4,10 @@ type Service = {
   summary: string;
   href: string;
   ctaLabel?: string;
+  image?: {
+    src: string;
+    alt: string;
+  };
 };
 
 type Props = {
@@ -31,6 +35,11 @@ const hasServices = services.length > 0;
       <div class="grid">
         {services.map((service) => (
           <article class="card service-card">
+            {service.image && (
+              <a class="service-card__media" href={service.href} aria-label={service.title}>
+                <img src={service.image.src} alt={service.image.alt} loading="lazy" />
+              </a>
+            )}
             <h3>
               <a href={service.href}>{service.title}</a>
             </h3>
@@ -67,19 +76,52 @@ const hasServices = services.length > 0;
     align-content: start;
     gap: 14px;
     overflow: hidden;
+    padding: 0;
   }
 
-  .service-card::before {
-    width: 44px;
-    height: 4px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--color-secondary), #f2d68b);
-    content: "";
+  .service-card__media {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--color-soft);
+  }
+
+  .service-card__media img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 240ms ease;
+  }
+
+  .service-card:hover .service-card__media img {
+    transform: scale(1.04);
+  }
+
+  .service-card h3,
+  .service-card p,
+  .service-card__link {
+    margin-inline: clamp(20px, 3vw, 28px);
   }
 
   .service-card h3,
   .service-card p {
     margin: 0;
+  }
+
+  .service-card h3 {
+    display: grid;
+    gap: 12px;
+    margin-top: 26px;
+    margin-inline: clamp(20px, 3vw, 28px);
+  }
+
+  .service-card h3::before {
+    width: 44px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-secondary), #f2d68b);
+    content: "";
   }
 
   .service-card h3 {
@@ -98,7 +140,9 @@ const hasServices = services.length > 0;
 
   .service-card__link {
     margin-top: 4px;
+    margin-bottom: clamp(20px, 3vw, 28px);
     color: var(--color-secondary);
     font-weight: 800;
   }
+
 </style>
