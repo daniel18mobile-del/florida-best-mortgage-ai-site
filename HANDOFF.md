@@ -16,9 +16,9 @@ Current branch:
 
 `feature/ai-editable-site`
 
-Latest commit at handoff:
+Handoff branch head:
 
-`73c40ae docs: add project handoff note`
+Use the latest commit on `feature/ai-editable-site`.
 
 ## What Is Built
 
