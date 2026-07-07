@@ -37,6 +37,7 @@
 - `README.md`: Project overview, local commands, deployment workflow.
 - `docs/content-editing.md`: Handoff guide for future Codex users.
 - `docs/deployment.md`: Hostinger and GitHub setup notes.
+- `docs/migration.md`: Staging, backup, cutover, and rollback procedure.
 
 ---
 
@@ -760,6 +761,7 @@ git commit -m "feat: add SEO validation"
 - Create: `README.md`
 - Create: `docs/content-editing.md`
 - Create: `docs/deployment.md`
+- Create: `docs/migration.md`
 
 - [ ] **Step 1: Create `README.md`**
 
@@ -799,7 +801,7 @@ Document exact examples for changing phone/email, adding a service, adding a blo
 
 - [ ] **Step 3: Create `docs/deployment.md`**
 
-Document required GitHub secrets:
+Document that deployment uses GitHub Actions plus Hostinger SSH for static publishing, with Hostinger API support for account/resource setup when an API token is available. Document required GitHub secrets:
 
 ```md
 - `HOSTINGER_HOST`
@@ -807,14 +809,41 @@ Document required GitHub secrets:
 - `HOSTINGER_SSH_KEY`
 - `HOSTINGER_PORT`
 - `HOSTINGER_TARGET_DIR`
+- `HOSTINGER_API_TOKEN` optional, only for Hostinger API setup/discovery scripts
 ```
 
 Explain that secret values must not be committed.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 4: Create `docs/migration.md`**
+
+```md
+# Migration Guide
+
+The current live site must stay intact until the new Astro site is verified.
+
+## Recommended Sequence
+
+1. Back up the existing Hostinger website files and any related website data.
+2. Create a staging target such as `new.floridabestmortgage.com` or `staging.floridabestmortgage.com`.
+3. Deploy the Astro build to staging through GitHub Actions and Hostinger SSH.
+4. Verify staging on desktop and mobile.
+5. Confirm contact links, email routing, sitemap, robots file, canonical URLs, and major service pages.
+6. Cut over `floridabestmortgage.com` to the new static site.
+7. Keep the old site backup until production has been verified.
+
+## Do Not Delete First
+
+Do not delete old production files before the new site is live and verified. Rename or archive old files when possible so rollback remains available.
+
+## Hostinger API
+
+Hostinger's developer API can help inspect hosting resources or create supporting resources if an API token is available. Do not commit API tokens. Use GitHub secrets or an untracked local environment file.
+```
+
+- [ ] **Step 5: Commit**
 
 ```bash
-git add README.md docs/content-editing.md docs/deployment.md
+git add README.md docs/content-editing.md docs/deployment.md docs/migration.md
 git commit -m "docs: add Codex handoff guides"
 ```
 

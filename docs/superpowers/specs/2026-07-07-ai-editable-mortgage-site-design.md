@@ -142,6 +142,31 @@ If native Git deployment is awkward or unreliable, use SSH/SFTP deployment from 
 
 The SSH/SFTP workflow is the fallback and may become the default if it is simpler to operate.
 
+## Hostinger API And Direct Access
+
+The implementation should use direct Hostinger integration where available, but it should not depend on dashboard-only manual uploads.
+
+Hostinger's official developer API can manage hosting resources such as websites and subdomains. If the user provides a Hostinger API token, the project can use the API for discovery and setup tasks such as checking available hosting accounts, creating a staging website or subdomain, and validating domain-related configuration.
+
+Static site publishing should still prefer Git or SSH deployment because those paths are better suited to pushing built Astro files. The API is useful for account and hosting-resource management; GitHub Actions plus SSH is the most reliable path for repeatable content deployment.
+
+No Hostinger API token, SSH key, password, or secret value should be committed to the repository. Secrets belong in GitHub repository secrets or a local, untracked environment file.
+
+## Migration Strategy
+
+The current live website should not be deleted at the start of the rebuild.
+
+The new site will be built and tested separately first, ideally on a staging subdomain such as `new.floridabestmortgage.com` or `staging.floridabestmortgage.com`. Once the staging site is verified, the production domain can be switched to the new static site.
+
+Before any production cutover:
+
+- Back up the current Hostinger files and any existing website data.
+- Confirm the old site's contact form, email routing, and DNS records.
+- Deploy the new site to staging and verify desktop, mobile, SEO metadata, contact links, sitemap, and robots file.
+- Cut over production only after the staging site passes review.
+
+After production cutover, keep the old site backup for rollback. Delete old files only after the new production site has been verified and rollback is no longer needed.
+
 ## Error Handling And Rollback
 
 The deployment workflow should fail before publishing if:
