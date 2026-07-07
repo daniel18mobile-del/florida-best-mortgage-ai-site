@@ -18,7 +18,7 @@ Current branch:
 
 Latest commit at handoff:
 
-`5c9eb8f style: polish mortgage site visual direction`
+`73c40ae docs: add project handoff note`
 
 ## What Is Built
 
@@ -142,4 +142,3 @@ The owner wants AI-first editing, not a drag-and-drop builder. Prefer editing st
 SEO matters. Keep page titles/descriptions unique, preserve sitemap/robots generation, and avoid thin duplicate location/service pages.
 
 The visual direction should feel more like a polished mortgage/lender site than a generic starter template. The current styling is improved but still open to refinement.
-
