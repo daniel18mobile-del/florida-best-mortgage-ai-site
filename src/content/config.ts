@@ -1,0 +1,58 @@
+import { defineCollection, z } from 'astro:content';
+
+const seoSchema = z.object({
+  title: z.string(),
+  description: z.string(),
+  canonical: z.string().optional(),
+  ogImage: z.string().optional()
+});
+
+const faqItemSchema = z.object({
+  question: z.string(),
+  answer: z.string()
+});
+
+const services = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    summary: z.string(),
+    order: z.number(),
+    ctaLabel: z.string().default('Talk with a mortgage advisor'),
+    seo: seoSchema,
+    faqs: z.array(faqItemSchema).default([])
+  })
+});
+
+const locations = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    city: z.string(),
+    region: z.string().default('Florida'),
+    summary: z.string(),
+    seo: seoSchema,
+    faqs: z.array(faqItemSchema).default([])
+  })
+});
+
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    slug: z.string(),
+    description: z.string(),
+    publishDate: z.date(),
+    updatedDate: z.date().optional(),
+    tags: z.array(z.string()).default([]),
+    seo: seoSchema
+  })
+});
+
+export const collections = {
+  services,
+  locations,
+  blog
+};

@@ -4,5 +4,8 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://floridabestmortgage.com',
   integrations: [sitemap()],
-  output: 'static'
+  output: 'static',
+  legacy: {
+    collectionsBackwardsCompat: true
+  }
 });
