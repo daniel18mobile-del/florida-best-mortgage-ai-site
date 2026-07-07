@@ -55,3 +55,31 @@ export function faqSchema(faqs: Faq[]) {
     }))
   };
 }
+
+export function blogPostingSchema(post: {
+  title: string;
+  description: string;
+  url: string;
+  publishDate: Date;
+  updatedDate?: Date;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    url: post.url,
+    datePublished: post.publishDate.toISOString(),
+    dateModified: (post.updatedDate ?? post.publishDate).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: site.advisor.name,
+      identifier: `NMLS #${site.advisor.nmls}`
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: site.legalName,
+      url: site.url
+    }
+  };
+}

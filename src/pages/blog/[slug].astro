@@ -5,7 +5,7 @@ import Hero from '@components/Hero.astro';
 import CtaBand from '@components/CtaBand.astro';
 import ContactPanel from '@components/ContactPanel.astro';
 import { site } from '@data/site';
-import { mortgageBrokerSchema } from '@utils/schema';
+import { blogPostingSchema, mortgageBrokerSchema } from '@utils/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -18,6 +18,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const postUrl = new URL(`/blog/${post.data.slug}/`, site.url).toString();
 const formatDate = (date: Date) =>
   new Intl.DateTimeFormat('en-US', {
     month: 'long',
@@ -31,7 +32,17 @@ const formatDate = (date: Date) =>
   description={post.data.seo.description}
   canonical={post.data.seo.canonical}
   ogImage={post.data.seo.ogImage}
-  schema={mortgageBrokerSchema()}
+  ogType="article"
+  schema={[
+    mortgageBrokerSchema(),
+    blogPostingSchema({
+      title: post.data.title,
+      description: post.data.description,
+      url: postUrl,
+      publishDate: post.data.publishDate,
+      updatedDate: post.data.updatedDate
+    })
+  ]}
 >
   <Hero
     eyebrow={`Published ${formatDate(post.data.publishDate)}`}

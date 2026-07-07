@@ -28,7 +28,7 @@ const hasSecondaryAction = Boolean(secondaryHref && secondaryLabel);
 const hasActions = hasPrimaryAction || hasSecondaryAction;
 ---
 
-<section class="hero section">
+<section class="hero section" style={posterSrc ? `--hero-poster: url('${posterSrc}')` : undefined}>
   {videoSrc && (
     <video
       class="hero__video"
@@ -36,6 +36,7 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
       muted
       loop
       playsinline
+      preload="metadata"
       poster={posterSrc}
       aria-hidden="true"
     >
@@ -87,6 +88,12 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
       radial-gradient(circle at 88% 12%, rgba(231, 182, 87, 0.32), transparent 26rem),
       linear-gradient(135deg, #0c3553 0%, #0f5f6f 55%, #174733 100%);
     color: #ffffff;
+  }
+
+  .hero:has(.hero__video) {
+    background-image: var(--hero-poster);
+    background-position: center;
+    background-size: cover;
   }
 
   .hero__video,
@@ -235,6 +242,12 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero__video {
+      display: none;
+    }
+  }
+
+  @media (max-width: 760px) {
     .hero__video {
       display: none;
     }
