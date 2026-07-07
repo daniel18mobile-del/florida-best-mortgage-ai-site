@@ -25,6 +25,31 @@ Optional:
 
 Never commit secret values.
 
+## Required GitHub Variable
+
+Add this repository variable when you are ready for GitHub Actions to deploy:
+
+- `HOSTINGER_DEPLOY_ENABLED` = `true`
+
+Without this variable, the workflow still validates and builds the site, but it will not deploy. This prevents accidental deployment before staging is ready.
+
+## Workflow Behavior
+
+The workflow file is:
+
+`.github/workflows/deploy.yml`
+
+It validates pushes to:
+
+- `feature/ai-editable-site`
+- `main`
+
+It deploys only when:
+
+- the branch is `main`, or a manual workflow run sets `deploy=true`
+- `HOSTINGER_DEPLOY_ENABLED` is set to `true`
+- all Hostinger SSH secrets are configured
+
 ## Hostinger Target Directory
 
 For staging, use a staging site/subdomain directory first.
@@ -48,4 +73,3 @@ Check:
 - Contact links use phone/email.
 - `dist/robots.txt` exists.
 - `dist/sitemap-index.xml` exists.
-
