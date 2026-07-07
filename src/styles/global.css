@@ -177,7 +177,13 @@ label {
   font-weight: 750;
 }
 
-input:not([type="button"]):not([type="reset"]):not([type="submit"]),
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="url"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
 textarea,
 select {
   width: 100%;
@@ -208,12 +214,23 @@ select {
   padding-right: 2.35rem;
 }
 
-input:not([type="button"]):not([type="reset"]):not([type="submit"])::placeholder,
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+input[type="url"]::placeholder,
+input[type="search"]::placeholder,
+input[type="number"]::placeholder,
 textarea::placeholder {
   color: #7b8794;
 }
 
-input:not([type="button"]):not([type="reset"]):not([type="submit"]):focus,
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
 textarea:focus,
 select:focus {
   border-color: var(--color-primary);
@@ -221,13 +238,25 @@ select:focus {
   outline: none;
 }
 
-input:not([type="button"]):not([type="reset"]):not([type="submit"])[aria-invalid="true"],
+input[type="text"][aria-invalid="true"],
+input[type="email"][aria-invalid="true"],
+input[type="tel"][aria-invalid="true"],
+input[type="url"][aria-invalid="true"],
+input[type="search"][aria-invalid="true"],
+input[type="number"][aria-invalid="true"],
+input[type="date"][aria-invalid="true"],
 textarea[aria-invalid="true"],
 select[aria-invalid="true"] {
   border-color: #b42318;
 }
 
-input:not([type="button"]):not([type="reset"]):not([type="submit"])[aria-invalid="true"]:focus,
+input[type="text"][aria-invalid="true"]:focus,
+input[type="email"][aria-invalid="true"]:focus,
+input[type="tel"][aria-invalid="true"]:focus,
+input[type="url"][aria-invalid="true"]:focus,
+input[type="search"][aria-invalid="true"]:focus,
+input[type="number"][aria-invalid="true"]:focus,
+input[type="date"][aria-invalid="true"]:focus,
 textarea[aria-invalid="true"]:focus,
 select[aria-invalid="true"]:focus {
   box-shadow: 0 0 0 4px rgba(180, 35, 24, 0.13);
