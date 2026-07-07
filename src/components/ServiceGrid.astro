@@ -62,9 +62,19 @@ const hasServices = services.length > 0;
   }
 
   .service-card {
+    position: relative;
     display: grid;
     align-content: start;
     gap: 14px;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    width: 44px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-secondary), #f2d68b);
+    content: "";
   }
 
   .service-card h3,
@@ -78,6 +88,7 @@ const hasServices = services.length > 0;
   }
 
   .service-card h3 a {
+    color: var(--color-primary-dark);
     text-decoration: none;
   }
 
@@ -86,6 +97,8 @@ const hasServices = services.length > 0;
   }
 
   .service-card__link {
+    margin-top: 4px;
+    color: var(--color-secondary);
     font-weight: 800;
   }
 </style>

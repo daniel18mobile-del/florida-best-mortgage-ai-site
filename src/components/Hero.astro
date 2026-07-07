@@ -26,41 +26,173 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
 
 <section class="hero section">
   <div class="container hero__inner">
-    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-    <h1>{title}</h1>
-    <p class="lead">{lead}</p>
-    {hasActions && (
-      <div class="actions hero__actions">
-        {hasPrimaryAction && <a class="button" href={primaryHref}>{primaryLabel}</a>}
-        {hasSecondaryAction && <a class="button button--secondary" href={secondaryHref}>{secondaryLabel}</a>}
-      </div>
-    )}
+    <div class="hero__content">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      <p class="lead">{lead}</p>
+      {hasActions && (
+        <div class="actions hero__actions">
+          {hasPrimaryAction && <a class="button" href={primaryHref}>{primaryLabel}</a>}
+          {hasSecondaryAction && <a class="button button--secondary" href={secondaryHref}>{secondaryLabel}</a>}
+        </div>
+      )}
+    </div>
+
+    <aside class="hero__panel" aria-label="Mortgage advisor highlights">
+      <div class="hero__portrait" aria-hidden="true">MZ</div>
+      <p class="hero__panel-kicker">Local Florida guidance</p>
+      <h2>Maria Zuluaga</h2>
+      <p>Mortgage support for purchase, refinance, FHA, VA, and home equity questions.</p>
+      <dl>
+        <div>
+          <dt>NMLS</dt>
+          <dd>242841</dd>
+        </div>
+        <div>
+          <dt>Office</dt>
+          <dd>Naples, FL</dd>
+        </div>
+        <div>
+          <dt>Languages</dt>
+          <dd>English and Spanish</dd>
+        </div>
+      </dl>
+    </aside>
   </div>
 </section>
 
 <style>
   .hero {
+    position: relative;
+    overflow: hidden;
     background:
-      linear-gradient(135deg, rgba(15, 95, 111, 0.09), rgba(183, 110, 43, 0.08)),
-      #ffffff;
+      radial-gradient(circle at 88% 12%, rgba(231, 182, 87, 0.32), transparent 26rem),
+      linear-gradient(135deg, #0c3553 0%, #0f5f6f 55%, #174733 100%);
+    color: #ffffff;
+  }
+
+  .hero::after {
+    position: absolute;
+    inset: auto 0 0;
+    height: 9px;
+    background: linear-gradient(90deg, #d79b36, #f2d68b, #d79b36);
+    content: "";
   }
 
   .hero__inner {
-    max-width: 820px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+    gap: clamp(28px, 6vw, 72px);
+    align-items: center;
+    min-height: min(690px, calc(100vh - 104px));
+  }
+
+  .hero__content {
+    max-width: 780px;
+  }
+
+  .hero .eyebrow {
+    color: #f2d68b;
   }
 
   .hero h1 {
-    max-width: 12ch;
+    max-width: 13ch;
     margin: 0;
-    font-size: clamp(2.45rem, 7vw, 5.2rem);
-    line-height: 0.98;
+    font-size: clamp(2.8rem, 7vw, 5.9rem);
+    line-height: 0.94;
   }
 
   .hero .lead {
     margin: 22px 0 0;
+    color: #dcebf0;
+    font-size: clamp(1.08rem, 2vw, 1.32rem);
   }
 
   .hero__actions {
     margin-top: 28px;
+  }
+
+  .hero__panel {
+    position: relative;
+    display: grid;
+    gap: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.94);
+    color: var(--color-ink);
+    box-shadow: 0 28px 80px rgba(5, 20, 34, 0.28);
+    padding: clamp(22px, 4vw, 34px);
+  }
+
+  .hero__portrait {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    border: 3px solid #f2d68b;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f5f6f, #0c3553);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+
+  .hero__panel-kicker {
+    margin: 0;
+    color: var(--color-secondary);
+    font-size: 0.78rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .hero__panel h2,
+  .hero__panel p,
+  .hero__panel dl {
+    margin: 0;
+  }
+
+  .hero__panel h2 {
+    font-size: clamp(1.8rem, 3vw, 2.35rem);
+    line-height: 1;
+  }
+
+  .hero__panel p {
+    color: var(--color-muted);
+  }
+
+  .hero__panel dl {
+    display: grid;
+    gap: 10px;
+    border-top: 1px solid var(--color-line);
+    padding-top: 16px;
+  }
+
+  .hero__panel dl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .hero__panel dt {
+    color: var(--color-muted);
+    font-weight: 750;
+  }
+
+  .hero__panel dd {
+    margin: 0;
+    font-weight: 850;
+    text-align: right;
+  }
+
+  @media (max-width: 860px) {
+    .hero__inner {
+      grid-template-columns: 1fr;
+      min-height: auto;
+    }
+
+    .hero h1 {
+      max-width: 11ch;
+    }
   }
 </style>

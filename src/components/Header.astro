@@ -4,6 +4,12 @@ import { site } from '@data/site';
 ---
 
 <header class="site-header">
+  <div class="site-header__top">
+    <div class="container site-header__top-inner">
+      <span>{site.nmls}</span>
+      <a href={site.emailHref}>{site.email}</a>
+    </div>
+  </div>
   <div class="container site-header__inner">
     <a class="skip-link" href="#main-content">Skip to content</a>
     <a class="site-brand" href="/" aria-label={`${site.name} home`}>
