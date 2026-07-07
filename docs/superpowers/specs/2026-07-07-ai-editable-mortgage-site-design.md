@@ -103,6 +103,20 @@ Future AI edits will happen in Git:
 
 For content changes, AI should prefer editing structured content files. Component changes should be reserved for layout, interaction, or shared presentation updates.
 
+## Codex Handoff Requirements
+
+The project should be easy for a different Codex user or future AI coding agent to continue editing without relying on this original conversation.
+
+The repo will include:
+
+- A top-level `README.md` explaining the project purpose, stack, local commands, deployment workflow, and common edit paths.
+- A content editing guide that maps common requests to files, such as changing contact details, adding a service page, adding a blog post, or editing FAQs.
+- Clear file and folder names for content, layouts, components, assets, and deployment workflows.
+- Example content entries for services, FAQs, blog posts, and location pages.
+- Deployment notes listing the required GitHub secrets and Hostinger settings, without storing secret values in the repo.
+
+The goal is for another Codex user to open the repository, read the docs, run the site locally, make an edit, verify it, and deploy it through the same automated workflow.
+
 ## Deployment Design
 
 Because Hostinger shows both SSH and Git, the preferred deployment path is:
@@ -162,4 +176,3 @@ For later edits, test depth can match risk: content-only changes need build and 
 - Custom admin dashboard.
 
 These can be added later if the business needs them. The first build should focus on a fast, searchable, trustworthy, AI-maintainable marketing site.
-
