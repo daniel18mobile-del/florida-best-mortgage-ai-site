@@ -1,0 +1,123 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import CtaBand from '@components/CtaBand.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { mortgageBrokerSchema } from '@utils/schema';
+---
+
+<BaseLayout
+  title="About Maria Zuluaga"
+  description="Learn about Maria Zuluaga and Florida Best Mortgage, a Florida mortgage guidance resource focused on clear advice, compliance, and practical loan support."
+  schema={mortgageBrokerSchema()}
+>
+  <Hero
+    eyebrow="About"
+    title={`Meet ${site.advisor.name}`}
+    lead="Florida mortgage guidance rooted in clear communication, practical loan education, and responsible support for buyers and homeowners."
+    primaryHref="/contact/"
+    primaryLabel="Talk with Maria"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Call ${site.phone}`}
+  />
+
+  <section class="section about-content" aria-labelledby="about-content-heading">
+    <div class="container about-content__inner">
+      <div>
+        <p class="eyebrow">Guidance first</p>
+        <h2 id="about-content-heading">A mortgage conversation should make the next step clearer</h2>
+      </div>
+      <div class="about-content__copy">
+        <p>
+          {site.advisor.name} helps Florida buyers and homeowners understand mortgage options before they make major financing decisions. The work is practical: review the documents, compare the loan paths, explain the tradeoffs, and prepare for underwriting questions before deadlines get tight.
+        </p>
+        <p>
+          Florida Best Mortgage supports purchase loans, refinancing conversations, FHA, VA, first-time buyer options, and home equity questions. Help is available for clients who want a calm, organized process and direct guidance from preapproval through closing.
+        </p>
+        <p>
+          Trust matters in mortgage lending. Florida Best Mortgage keeps compliance, licensing, and borrower qualification at the center of the conversation. Information on this site is educational and does not replace a full application, lender review, or underwriting approval.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section compliance" aria-labelledby="compliance-heading">
+    <div class="container compliance__inner">
+      <p class="eyebrow">Licensing and compliance</p>
+      <h2 id="compliance-heading">Clear guidance with responsible expectations</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>NMLS identification</h3>
+          <p>{site.nmls}</p>
+        </article>
+        <article class="card">
+          <h3>No unsupported promises</h3>
+          <p>Loan approval, rates, terms, and program availability depend on borrower qualification, lender review, and applicable underwriting guidelines.</p>
+        </article>
+        <article class="card">
+          <h3>Florida-focused support</h3>
+          <p>Guidance accounts for local property details, insurance considerations, condo review, and market timelines where relevant.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Bring your mortgage questions to Maria"
+    text="Get a grounded review of your goals, documents, and possible loan paths."
+    primaryHref="/contact/"
+    primaryLabel="Contact Maria"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Call ${site.phone}`}
+  />
+
+  <ContactPanel />
+</BaseLayout>
+
+<style>
+  .about-content {
+    background: #ffffff;
+  }
+
+  .about-content__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+    gap: clamp(24px, 5vw, 56px);
+  }
+
+  .about-content h2,
+  .compliance h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .about-content__copy {
+    display: grid;
+    gap: 18px;
+  }
+
+  .about-content__copy p,
+  .compliance p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 1.05rem;
+  }
+
+  .compliance__inner {
+    display: grid;
+    gap: 28px;
+  }
+
+  .compliance h3 {
+    margin: 0 0 10px;
+    font-size: 1.15rem;
+  }
+
+  @media (max-width: 820px) {
+    .about-content__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

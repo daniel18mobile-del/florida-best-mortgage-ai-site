@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ServiceGrid from '@components/ServiceGrid.astro';
+import CtaBand from '@components/CtaBand.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { mortgageBrokerSchema } from '@utils/schema';
+
+const services = (await getCollection('services'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((service) => ({
+    title: service.data.title,
+    summary: service.data.summary,
+    href: `/services/${service.data.slug}/`,
+    ctaLabel: service.data.ctaLabel
+  }));
+---
+
+<BaseLayout
+  title="Florida Mortgage Services"
+  description="Explore Florida mortgage services from Florida Best Mortgage, including FHA, VA, first-time buyer, refinance, HELOC, and home equity loan guidance."
+  schema={mortgageBrokerSchema()}
+>
+  <Hero
+    eyebrow="Services"
+    title="Florida mortgage services"
+    lead="Compare loan options with guidance that accounts for your documents, property, budget, and timeline."
+    primaryHref="/contact/"
+    primaryLabel="Start a conversation"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Call ${site.phone}`}
+  />
+
+  <ServiceGrid
+    eyebrow="Loan programs"
+    title="Choose the right mortgage path"
+    lead="Every loan type comes with tradeoffs. Maria helps you understand the practical differences before you move forward."
+    services={services}
+  />
+
+  <CtaBand
+    title="Need help choosing a loan option?"
+    text="Talk through your goals, documents, and next steps with Florida Best Mortgage."
+    primaryHref="/contact/"
+    primaryLabel="Contact Maria"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Call ${site.phone}`}
+  />
+
+  <ContactPanel />
+</BaseLayout>

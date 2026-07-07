@@ -1,0 +1,125 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ServiceGrid from '@components/ServiceGrid.astro';
+import CtaBand from '@components/CtaBand.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { mortgageBrokerSchema } from '@utils/schema';
+
+const services = (await getCollection('services'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .map((service) => ({
+    title: service.data.title,
+    summary: service.data.summary,
+    href: `/services/${service.data.slug}/`,
+    ctaLabel: service.data.ctaLabel
+  }));
+---
+
+<BaseLayout
+  title="Florida Mortgage Broker"
+  description="Florida Best Mortgage helps buyers and homeowners compare purchase, refinance, FHA, VA, first-time buyer, and home equity loan options with Maria Zuluaga."
+  schema={mortgageBrokerSchema()}
+>
+  <Hero
+    eyebrow="Florida mortgage guidance"
+    title="Mortgage help for Florida buyers and homeowners"
+    lead={`Work with ${site.advisor.name} for practical loan guidance, clear next steps, and support from preapproval through closing.`}
+    primaryHref="/contact/"
+    primaryLabel="Talk with Maria"
+    secondaryHref="/services/"
+    secondaryLabel="Explore loan options"
+  />
+
+  <ServiceGrid
+    eyebrow="Loan options"
+    title="Mortgage services built around your next move"
+    lead="Compare programs, documents, payments, and timelines before you commit to a loan path."
+    services={services}
+  />
+
+  <section class="section local-links" aria-labelledby="local-links-heading">
+    <div class="container local-links__inner">
+      <div>
+        <p class="eyebrow">Local guidance</p>
+        <h2 id="local-links-heading">Southwest Florida mortgage support</h2>
+        <p class="lead">
+          Get local help with property types, insurance questions, condo considerations, and offer timelines in key Florida markets.
+        </p>
+      </div>
+      <div class="local-links__list">
+        <a class="card local-link" href="/locations/naples-mortgage-broker/">
+          <span>Naples Mortgage Broker</span>
+          <small>Mortgage guidance for Naples buyers and homeowners.</small>
+        </a>
+        <a class="card local-link" href="/locations/fort-myers-mortgage-broker/">
+          <span>Fort Myers Mortgage Broker</span>
+          <small>Loan support for Fort Myers purchases and refinances.</small>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Ready to talk through your mortgage options?"
+    text="Call or email for purchase, refinance, home equity, and first-time buyer guidance in Florida."
+    primaryHref={site.phoneHref}
+    primaryLabel={`Call ${site.phone}`}
+    secondaryHref="/contact/"
+    secondaryLabel="Contact Florida Best Mortgage"
+  />
+
+  <ContactPanel />
+</BaseLayout>
+
+<style>
+  .local-links {
+    background: var(--color-soft);
+  }
+
+  .local-links__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: clamp(24px, 5vw, 56px);
+    align-items: start;
+  }
+
+  .local-links h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .local-links .lead {
+    margin: 14px 0 0;
+  }
+
+  .local-links__list {
+    display: grid;
+    gap: 16px;
+  }
+
+  .local-link {
+    display: grid;
+    gap: 8px;
+    text-decoration: none;
+  }
+
+  .local-link span {
+    font-size: 1.12rem;
+    font-weight: 850;
+  }
+
+  .local-link small {
+    color: var(--color-muted);
+    font-size: 0.98rem;
+  }
+
+  @media (max-width: 820px) {
+    .local-links__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
