@@ -1,0 +1,42 @@
+---
+import { footerNav } from '@data/navigation';
+import { site } from '@data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <section class="site-footer__brand" aria-labelledby="footer-brand-heading">
+      <h2 id="footer-brand-heading">{site.name}</h2>
+      <p>{site.description}</p>
+      <p class="site-footer__nmls">{site.nmls}</p>
+    </section>
+
+    <nav class="site-footer__nav" aria-label="Footer navigation">
+      <h2>Loan resources</h2>
+      <ul>
+        {footerNav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <section class="site-footer__contact" aria-labelledby="footer-contact-heading">
+      <h2 id="footer-contact-heading">Contact</h2>
+      <address>
+        <a href={site.phoneHref}>{site.phone}</a>
+        <a href={site.emailHref}>{site.email}</a>
+        <span>{site.address.street}</span>
+        <span>{site.address.city}, {site.address.region} {site.address.postalCode}</span>
+      </address>
+    </section>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>&copy; {year} {site.legalName}. All rights reserved.</p>
+    <p>{site.equalHousingText}</p>
+  </div>
+</footer>

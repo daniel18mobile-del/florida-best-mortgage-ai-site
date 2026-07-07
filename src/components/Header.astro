@@ -1,0 +1,29 @@
+---
+import { primaryNav } from '@data/navigation';
+import { site } from '@data/site';
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="site-brand" href="/" aria-label={`${site.name} home`}>
+      <span class="site-brand__mark" aria-hidden="true">FBM</span>
+      <span class="site-brand__text">
+        <span>{site.name}</span>
+        <small>Florida mortgage guidance</small>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <ul class="site-nav__list">
+        {primaryNav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <a class="button site-header__action" href={site.phoneHref} aria-label={`Call ${site.name} at ${site.phone}`}>
+      {site.phone}
+    </a>
+  </div>
+</header>
