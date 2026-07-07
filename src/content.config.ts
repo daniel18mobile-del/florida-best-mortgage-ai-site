@@ -46,8 +46,8 @@ const blog = defineCollection({
     title: z.string(),
     slug: z.string(),
     description: z.string(),
-    publishDate: z.date(),
-    updatedDate: z.date().optional(),
+    publishDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     seo: seoSchema
   })
