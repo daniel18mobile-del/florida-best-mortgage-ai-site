@@ -15,7 +15,7 @@
 - `package.json`: npm scripts and project dependencies.
 - `astro.config.mjs`: Astro configuration, site URL, sitemap integration.
 - `tsconfig.json`: TypeScript settings.
-- `src/content/config.ts`: Content collection schemas for services, locations, blog, FAQs, testimonials.
+- `src/content.config.ts`: Astro Content Layer collection loaders and schemas for services, locations, and blog.
 - `src/content/services/*.md`: Editable mortgage service pages.
 - `src/content/locations/*.md`: Editable local SEO pages.
 - `src/content/blog/*.md`: Editable blog posts.
@@ -154,7 +154,10 @@ git commit -m "chore: scaffold Astro site"
 **Files:**
 - Create: `src/data/site.ts`
 - Create: `src/data/navigation.ts`
-- Create: `src/content/config.ts`
+- Create: `src/content.config.ts`
+- Create: `src/content/services/.gitkeep`
+- Create: `src/content/locations/.gitkeep`
+- Create: `src/content/blog/.gitkeep`
 
 - [ ] **Step 1: Create `src/data/site.ts`**
 
@@ -206,10 +209,12 @@ export const footerNav = [
 ];
 ```
 
-- [ ] **Step 3: Create `src/content/config.ts`**
+- [ ] **Step 3: Create `src/content.config.ts`**
 
 ```ts
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
 
 const seoSchema = z.object({
   title: z.string(),
@@ -219,7 +224,7 @@ const seoSchema = z.object({
 });
 
 const services = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/services' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -235,7 +240,7 @@ const services = defineCollection({
 });
 
 const locations = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/locations' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -251,7 +256,7 @@ const locations = defineCollection({
 });
 
 const blog = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
     slug: z.string(),
@@ -270,16 +275,25 @@ export const collections = {
 };
 ```
 
-- [ ] **Step 4: Run schema check**
+- [ ] **Step 4: Create content directories**
+
+Create empty tracked directories for the collections before seed content exists:
+
+```bash
+mkdir -p src/content/services src/content/locations src/content/blog
+touch src/content/services/.gitkeep src/content/locations/.gitkeep src/content/blog/.gitkeep
+```
+
+- [ ] **Step 5: Run schema check**
 
 Run: `npm run check`
 
 Expected: PASS with no TypeScript or Astro content schema errors.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
-git add src/data/site.ts src/data/navigation.ts src/content/config.ts
+git add src/data/site.ts src/data/navigation.ts src/content.config.ts src/content/services/.gitkeep src/content/locations/.gitkeep src/content/blog/.gitkeep
 git commit -m "feat: add site data and content schemas"
 ```
 
