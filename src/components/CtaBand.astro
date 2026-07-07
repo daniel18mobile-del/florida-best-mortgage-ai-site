@@ -1,0 +1,73 @@
+---
+type Props = {
+  title: string;
+  text: string;
+  primaryHref: string;
+  primaryLabel: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+};
+
+const {
+  title,
+  text,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel
+} = Astro.props;
+
+const hasSecondaryAction = Boolean(secondaryHref && secondaryLabel);
+---
+
+<section class="section cta-band" aria-labelledby="cta-band-heading">
+  <div class="container cta-band__inner">
+    <div>
+      <h2 id="cta-band-heading">{title}</h2>
+      <p class="lead">{text}</p>
+    </div>
+    <div class="actions cta-band__actions">
+      <a class="button" href={primaryHref}>{primaryLabel}</a>
+      {hasSecondaryAction && <a class="button button--secondary" href={secondaryHref}>{secondaryLabel}</a>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    background: #111a24;
+    color: #ffffff;
+  }
+
+  .cta-band__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .cta-band h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .cta-band .lead {
+    margin: 12px 0 0;
+    color: #d6e0e5;
+  }
+
+  .cta-band__actions {
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 760px) {
+    .cta-band__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .cta-band__actions {
+      justify-content: flex-start;
+    }
+  }
+</style>

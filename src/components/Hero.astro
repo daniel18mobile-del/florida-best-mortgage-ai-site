@@ -1,0 +1,66 @@
+---
+type Props = {
+  eyebrow?: string;
+  title: string;
+  lead: string;
+  primaryHref?: string;
+  primaryLabel?: string;
+  secondaryHref?: string;
+  secondaryLabel?: string;
+};
+
+const {
+  eyebrow,
+  title,
+  lead,
+  primaryHref,
+  primaryLabel,
+  secondaryHref,
+  secondaryLabel
+} = Astro.props;
+
+const hasPrimaryAction = Boolean(primaryHref && primaryLabel);
+const hasSecondaryAction = Boolean(secondaryHref && secondaryLabel);
+const hasActions = hasPrimaryAction || hasSecondaryAction;
+---
+
+<section class="hero section">
+  <div class="container hero__inner">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    <p class="lead">{lead}</p>
+    {hasActions && (
+      <div class="actions hero__actions">
+        {hasPrimaryAction && <a class="button" href={primaryHref}>{primaryLabel}</a>}
+        {hasSecondaryAction && <a class="button button--secondary" href={secondaryHref}>{secondaryLabel}</a>}
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .hero {
+    background:
+      linear-gradient(135deg, rgba(15, 95, 111, 0.09), rgba(183, 110, 43, 0.08)),
+      #ffffff;
+  }
+
+  .hero__inner {
+    max-width: 820px;
+  }
+
+  .hero h1 {
+    max-width: 12ch;
+    margin: 0;
+    font-size: clamp(2.45rem, 7vw, 5.2rem);
+    line-height: 0.98;
+  }
+
+  .hero .lead {
+    margin: 22px 0 0;
+  }
+
+  .hero__actions {
+    margin-top: 28px;
+  }
+</style>
