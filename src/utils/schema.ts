@@ -26,6 +26,7 @@ export function mortgageBrokerSchema() {
     description: site.description,
     telephone: site.phone,
     email: site.email,
+    image: advisorImageUrl,
     address,
     areaServed: {
       '@type': 'State',
@@ -40,7 +41,33 @@ export function mortgageBrokerSchema() {
     identifier: [
       `NMLS #${site.companyNmls}`,
       `NMLS #${site.advisor.nmls}`
+    ],
+    sameAs: [
+      site.nmlsConsumerAccessUrl
     ]
+  };
+}
+
+export function webPageSchema(page: {
+  name: string;
+  description: string;
+  url: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: page.name,
+    description: page.description,
+    url: page.url,
+    about: {
+      '@type': 'MortgageBroker',
+      name: site.name,
+      legalName: site.legalName,
+      identifier: [
+        `NMLS #${site.companyNmls}`,
+        `NMLS #${site.advisor.nmls}`
+      ]
+    }
   };
 }
 

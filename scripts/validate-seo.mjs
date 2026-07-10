@@ -85,6 +85,12 @@ for (const [description, files] of descriptions.entries()) {
 
 if (!existsSync(join(dist, 'robots.txt'))) failures.push('Missing robots.txt');
 if (!existsSync(join(dist, 'sitemap-index.xml'))) failures.push('Missing sitemap-index.xml');
+if (!existsSync(join(dist, 'llms.txt'))) failures.push('Missing llms.txt');
+if (!existsSync(join(dist, 'b74e2e16f2cf4bb19bb6f0775d2f6c7a.txt'))) failures.push('Missing IndexNow key file');
+
+const robots = readFileSync(join(dist, 'robots.txt'), 'utf8');
+if (!robots.includes('Sitemap: https://floridabestmortgage.com/sitemap-index.xml')) failures.push('robots.txt missing sitemap directive');
+if (!robots.includes('LLMs: https://floridabestmortgage.com/llms.txt')) failures.push('robots.txt missing llms.txt directive');
 
 const blogHtml = readFileSync(join(dist, 'blog', 'florida-mortgage-preapproval-guide', 'index.html'), 'utf8');
 if (!blogHtml.includes('property="og:type" content="article"')) failures.push('Blog post missing article og:type');
@@ -96,4 +102,3 @@ if (failures.length > 0) {
 }
 
 console.log(`SEO validation passed for ${htmlFiles.length} HTML files.`);
-

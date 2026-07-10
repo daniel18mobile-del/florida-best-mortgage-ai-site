@@ -14,6 +14,7 @@ export const footerNav = [
   { label: 'DSCR Loans', href: '/services/dscr-loans-florida/' },
   { label: 'Refinance', href: '/services/refinance-mortgage-florida/' },
   { label: 'Calculators', href: '/calculators/' },
+  { label: 'Licensing and Trust', href: '/licensing/' },
   { label: 'Naples Mortgage Broker', href: '/locations/naples-mortgage-broker/' },
   { label: 'Fort Myers Mortgage Broker', href: '/locations/fort-myers-mortgage-broker/' },
   { label: 'Cape Coral Mortgage Broker', href: '/locations/cape-coral-mortgage-broker/' }
