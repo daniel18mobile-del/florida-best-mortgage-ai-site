@@ -1,4 +1,6 @@
 ---
+import { site } from '@data/site';
+
 type Props = {
   eyebrow?: string;
   title: string;
@@ -58,7 +60,15 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
     </div>
 
     <aside class="hero__panel" aria-label="Mortgage advisor highlights">
-      <div class="hero__portrait" aria-hidden="true">MZ</div>
+      <img
+        class="hero__portrait"
+        src={site.advisor.image.src}
+        alt={site.advisor.image.alt}
+        width="152"
+        height="152"
+        loading="eager"
+        decoding="async"
+      />
       <p class="hero__panel-kicker">Local Florida guidance</p>
       <h2>Maria Zuluaga</h2>
       <p>Mortgage support for purchase, refinance, FHA, VA, and home equity questions.</p>
@@ -170,17 +180,13 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
   }
 
   .hero__portrait {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
     width: 76px;
     height: 76px;
     border: 3px solid #f2d68b;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0f5f6f, #0c3553);
-    color: #ffffff;
-    font-size: 1.1rem;
-    font-weight: 900;
+    object-fit: cover;
+    object-position: 50% 32%;
+    box-shadow: 0 10px 22px rgba(5, 20, 34, 0.16);
   }
 
   .hero__panel-kicker {

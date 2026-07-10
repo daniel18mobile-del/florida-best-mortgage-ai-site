@@ -29,7 +29,20 @@ const guidanceEmailHref = `${site.emailHref}?subject=${emailSubject}&body=${emai
 
     <div class="grid contact-panel__grid">
       <section class="card contact-panel__details" aria-labelledby="contact-details-heading">
-        <h3 id="contact-details-heading">Contact details</h3>
+        <div class="contact-panel__advisor">
+          <img
+            src={site.advisor.image.src}
+            alt={site.advisor.image.alt}
+            width="128"
+            height="128"
+            loading="lazy"
+            decoding="async"
+          />
+          <div>
+            <p class="contact-panel__advisor-kicker">Mortgage advisor</p>
+            <h3 id="contact-details-heading">Contact details</h3>
+          </div>
+        </div>
         <address>
           <a href={site.phoneHref}>{site.phone}</a>
           <a href={site.emailHref}>{site.email}</a>
@@ -76,6 +89,29 @@ const guidanceEmailHref = `${site.emailHref}?subject=${emailSubject}&body=${emai
   .contact-panel__details {
     display: grid;
     gap: 18px;
+  }
+
+  .contact-panel__advisor {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .contact-panel__advisor img {
+    flex: 0 0 auto;
+    width: 64px;
+    height: 64px;
+    border: 3px solid #f2d68b;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 50% 32%;
+  }
+
+  .contact-panel__advisor-kicker {
+    color: var(--color-secondary);
+    font-size: 0.76rem;
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
   .contact-panel__details h3,

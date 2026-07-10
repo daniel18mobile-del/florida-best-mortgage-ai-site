@@ -16,7 +16,11 @@ export const site = {
   },
   advisor: {
     name: 'Maria Zuluaga',
-    nmls: '242841'
+    nmls: '242841',
+    image: {
+      src: '/images/maria-zuluaga-headshot.jpg',
+      alt: 'Maria Zuluaga, Florida mortgage advisor'
+    }
   },
   companyNmls: '2746598',
   nmls: 'Maria Zuluaga, NMLS #242841 | Dinerofacil LLC, NMLS #2746598',

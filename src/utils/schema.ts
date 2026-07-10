@@ -14,6 +14,8 @@ const address = {
   ...(site.address.country ? { addressCountry: site.address.country } : {})
 };
 
+const advisorImageUrl = new URL(site.advisor.image.src, site.url).toString();
+
 export function mortgageBrokerSchema() {
   return {
     '@context': 'https://schema.org',
@@ -32,7 +34,8 @@ export function mortgageBrokerSchema() {
     employee: {
       '@type': 'Person',
       name: site.advisor.name,
-      identifier: `NMLS #${site.advisor.nmls}`
+      identifier: `NMLS #${site.advisor.nmls}`,
+      image: advisorImageUrl
     },
     identifier: [
       `NMLS #${site.companyNmls}`,
@@ -87,7 +90,8 @@ export function blogPostingSchema(post: {
     author: {
       '@type': 'Person',
       name: site.advisor.name,
-      identifier: `NMLS #${site.advisor.nmls}`
+      identifier: `NMLS #${site.advisor.nmls}`,
+      image: advisorImageUrl
     },
     publisher: {
       '@type': 'Organization',
