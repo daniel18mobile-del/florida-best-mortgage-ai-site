@@ -124,6 +124,12 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
       linear-gradient(105deg, rgba(8, 30, 49, 0.92) 0%, rgba(12, 53, 83, 0.82) 48%, rgba(15, 95, 111, 0.62) 100%);
   }
 
+  .hero:has(.hero__video) .hero__shade {
+    background:
+      radial-gradient(circle at 88% 12%, rgba(231, 182, 87, 0.18), transparent 26rem),
+      linear-gradient(105deg, rgba(8, 30, 49, 0.68) 0%, rgba(12, 53, 83, 0.48) 50%, rgba(15, 95, 111, 0.24) 100%);
+  }
+
   .hero::after {
     position: absolute;
     inset: auto 0 0;
