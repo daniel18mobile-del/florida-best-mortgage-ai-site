@@ -25,17 +25,35 @@ Use the latest commit on `feature/ai-editable-site`.
 - Astro static site using Astro 7.
 - SEO-focused content structure.
 - Structured content collections for services, locations, and blog posts.
-- Initial mortgage content:
+- Mortgage service content:
   - FHA Loans in Florida
   - VA Loans in Florida
   - First-Time Home Buyer Programs in Florida
   - Refinance Mortgage Florida
   - HELOC and Home Equity Loans
+  - Condo Loans in Florida
+  - Construction Loans in Florida
+  - DSCR Loans in Florida
+  - Jumbo Loans in Florida
+  - Non-QM Loans in Florida
+  - Renovation Loans in Florida
+  - Reverse Mortgage Guidance in Florida
+  - USDA Loans in Florida
+- Southwest Florida location content:
   - Naples Mortgage Broker
   - Fort Myers Mortgage Broker
-  - Florida Mortgage Preapproval Guide blog post
+  - Ave Maria Mortgage Broker
+  - Bonita Springs Mortgage Broker
+  - Cape Coral Mortgage Broker
+  - Estero Mortgage Broker
+  - Golden Gate Mortgage Broker
+  - Lehigh Acres Mortgage Broker
+  - Marco Island Mortgage Broker
+- Blog/resource content for preapproval, document checklists, closing dos and don'ts, condos, flood insurance, Naples jumbo loans, DSCR rentals, HELOC vs cash-out refinance, broker vs bank, and new-to-Florida buying.
 - Pages/routes:
   - Home
+  - Calculators
+  - Spanish `/es/` entry, contact, about, service index, and service detail pages
   - Services index
   - Service detail pages
   - Location pages
@@ -50,17 +68,17 @@ Use the latest commit on `feature/ai-editable-site`.
   - trust strip
   - stronger service card treatment
 - Static-safe contact panel using phone/email CTAs instead of an unsupported POST form.
+- BreadcrumbList, FAQPage, BlogPosting, and MortgageBroker structured data on relevant pages.
 
 ## Verified
 
 These commands passed:
 
 ```bash
-npm run check
-npm run build
+npm run validate:seo
 ```
 
-Build generated 13 pages.
+Build generated 56 pages and SEO validation passed.
 
 The local dev server was viewed in Codex's built-in browser at:
 
@@ -95,19 +113,11 @@ Then open:
 
 ## Remaining Work
 
-1. Complete formal review of Task 6 pages and routes.
-2. Add SEO files and validation script:
-   - `src/pages/robots.txt.ts`
-   - `scripts/validate-seo.mjs`
-   - `npm run validate:seo`
-3. Add handoff documentation:
-   - `README.md`
-   - `docs/content-editing.md`
-   - `docs/deployment.md`
-   - `docs/migration.md`
-4. Add GitHub Actions deployment workflow for Hostinger SSH deploy.
-5. Run final local/browser verification.
-6. Connect to GitHub and Hostinger staging.
+1. Review the new SEO content with Maria for licensing/compliance accuracy and preferred wording.
+2. Replace generic Spanish service copy with full human-approved Spanish translations where needed.
+3. Add real testimonials/reviews only if they can be verified and approved.
+4. Connect GitHub Actions to Hostinger SSH secrets and deploy to staging.
+5. Run final staging browser verification before any production cutover.
 
 ## Hostinger Plan
 

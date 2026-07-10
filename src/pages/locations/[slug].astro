@@ -5,7 +5,7 @@ import Hero from '@components/Hero.astro';
 import FaqList from '@components/FaqList.astro';
 import ContactPanel from '@components/ContactPanel.astro';
 import { site } from '@data/site';
-import { faqSchema, mortgageBrokerSchema } from '@utils/schema';
+import { breadcrumbSchema, faqSchema, mortgageBrokerSchema } from '@utils/schema';
 
 export async function getStaticPaths() {
   const locations = await getCollection('locations');
@@ -18,11 +18,27 @@ export async function getStaticPaths() {
 
 const { location } = Astro.props;
 const { Content } = await render(location);
+const locationUrl = new URL(`/locations/${location.data.slug}/`, site.url).toString();
 const services = (await getCollection('services'))
   .sort((a, b) => a.data.order - b.data.order);
 const schema = location.data.faqs.length > 0
-  ? [mortgageBrokerSchema(), faqSchema(location.data.faqs)]
-  : mortgageBrokerSchema();
+  ? [
+      mortgageBrokerSchema(),
+      breadcrumbSchema([
+        { name: 'Home', url: site.url },
+        { name: 'Locations', url: new URL('/#southwest-florida-mortgage-support', site.url).toString() },
+        { name: location.data.title, url: locationUrl }
+      ]),
+      faqSchema(location.data.faqs)
+    ]
+  : [
+      mortgageBrokerSchema(),
+      breadcrumbSchema([
+        { name: 'Home', url: site.url },
+        { name: 'Locations', url: new URL('/#southwest-florida-mortgage-support', site.url).toString() },
+        { name: location.data.title, url: locationUrl }
+      ])
+    ];
 ---
 
 <BaseLayout

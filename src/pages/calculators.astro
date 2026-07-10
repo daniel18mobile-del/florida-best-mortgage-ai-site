@@ -1,0 +1,137 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import CtaBand from '@components/CtaBand.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
+
+const tools = [
+  {
+    title: 'Mortgage Payment Estimate',
+    text: 'Estimate principal and interest before reviewing taxes, homeowners insurance, mortgage insurance, HOA dues, and flood insurance.'
+  },
+  {
+    title: 'Refinance Break-Even Review',
+    text: 'Compare estimated savings with closing costs and how long you expect to keep the loan.'
+  },
+  {
+    title: 'Home Equity Conversation',
+    text: 'Organize questions about HELOC, home equity loan, and cash-out refinance options before choosing a path.'
+  }
+];
+---
+
+<BaseLayout
+  title="Florida Mortgage Calculators"
+  description="Use Florida mortgage calculator guidance to prepare questions about payment, refinance savings, home equity, insurance, and cash to close."
+  schema={[
+    mortgageBrokerSchema(),
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Calculators', url: new URL('/calculators/', site.url).toString() }
+    ])
+  ]}
+>
+  <Hero
+    eyebrow="Mortgage calculators"
+    title="Estimate the numbers before you choose a loan"
+    lead="Calculators are useful starting points, but Florida payments can change when taxes, insurance, flood coverage, condo fees, and program rules are included."
+    primaryHref="/contact/"
+    primaryLabel="Review numbers with Maria"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Call ${site.phone}`}
+  />
+
+  <section class="section calculator-guide" aria-labelledby="calculator-guide-heading">
+    <div class="container">
+      <div class="calculator-guide__header">
+        <p class="eyebrow">Planning tools</p>
+        <h2 id="calculator-guide-heading">What to calculate first</h2>
+        <p class="lead">Use these prompts to prepare for a more accurate preapproval or refinance conversation.</p>
+      </div>
+      <div class="grid">
+        {tools.map((tool) => (
+          <article class="card calculator-card">
+            <h3>{tool.title}</h3>
+            <p>{tool.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section content-section" aria-label="Florida mortgage calculator guidance">
+    <div class="container content-section__inner">
+      <h2>Why calculator results can differ from a real Florida preapproval</h2>
+      <p>
+        Online calculators often focus on principal and interest. A Florida mortgage payment can also include property taxes, homeowners insurance, flood insurance, mortgage insurance, HOA or condo dues, and escrow changes.
+      </p>
+      <p>
+        If you are buying in Naples, Fort Myers, Cape Coral, Bonita Springs, Estero, Marco Island, Ave Maria, Lehigh Acres, or Golden Gate, the property type and insurance details can make a meaningful difference. Maria can help you review the full payment picture before you make an offer.
+      </p>
+      <h2>Bring these numbers to your call</h2>
+      <p>
+        Helpful details include purchase price or estimated value, down payment or equity, credit range, income type, property address if available, HOA or condo fees, and any insurance quotes you already have.
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Want a clearer payment estimate?"
+    text="Share your goals and property details so Florida Best Mortgage can help you compare realistic loan paths."
+    primaryHref="/contact/"
+    primaryLabel="Ask for a payment review"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Call ${site.phone}`}
+  />
+
+  <ContactPanel />
+</BaseLayout>
+
+<style>
+  .calculator-guide {
+    background: var(--color-soft);
+  }
+
+  .calculator-guide__header {
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+
+  .calculator-guide__header h2,
+  .content-section__inner h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    line-height: 1.08;
+  }
+
+  .calculator-guide__header .lead {
+    margin: 14px 0 0;
+  }
+
+  .calculator-card {
+    display: grid;
+    gap: 12px;
+  }
+
+  .calculator-card h3,
+  .calculator-card p {
+    margin: 0;
+  }
+
+  .calculator-card p,
+  .content-section__inner p {
+    color: var(--color-muted);
+  }
+
+  .content-section {
+    background: #ffffff;
+  }
+
+  .content-section__inner {
+    display: grid;
+    gap: 16px;
+    max-width: 820px;
+  }
+</style>

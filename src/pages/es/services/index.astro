@@ -1,0 +1,76 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
+
+const services = (await getCollection('services'))
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout
+  title="Servicios Hipotecarios en Florida"
+  description="Explore servicios hipotecarios en Florida con ayuda en espanol para FHA, VA, refinanciamiento, HELOC, jumbo, DSCR, condominios y compradores."
+  schema={[
+    mortgageBrokerSchema(),
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Espanol', url: new URL('/es/', site.url).toString() },
+      { name: 'Servicios', url: new URL('/es/services/', site.url).toString() }
+    ])
+  ]}
+>
+  <Hero
+    eyebrow="Servicios"
+    title="Servicios hipotecarios en espanol"
+    lead="Compare opciones de prestamo con orientacion clara sobre documentos, pago estimado, propiedad y proximos pasos."
+    primaryHref="/contact/"
+    primaryLabel="Contactar a Maria"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Llamar ${site.phone}`}
+  />
+
+  <section class="section spanish-services" aria-label="Servicios hipotecarios">
+    <div class="container grid">
+      {services.map((service) => (
+        <article class="card service-card">
+          <h2><a href={`/es/services/${service.data.slug}/`}>{service.data.title}</a></h2>
+          <p>{service.data.summary}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <ContactPanel />
+</BaseLayout>
+
+<style>
+  .spanish-services {
+    background: #ffffff;
+  }
+
+  .service-card {
+    display: grid;
+    gap: 12px;
+  }
+
+  .service-card h2,
+  .service-card p {
+    margin: 0;
+  }
+
+  .service-card h2 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .service-card a {
+    text-decoration: none;
+  }
+
+  .service-card p {
+    color: var(--color-muted);
+  }
+</style>

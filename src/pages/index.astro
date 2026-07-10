@@ -18,6 +18,8 @@ const services = (await getCollection('services'))
     ctaLabel: service.data.ctaLabel,
     image: serviceImages[service.data.slug]
   }));
+const locations = (await getCollection('locations'))
+  .sort((a, b) => a.data.city.localeCompare(b.data.city));
 ---
 
 <BaseLayout
@@ -61,7 +63,7 @@ const services = (await getCollection('services'))
     </div>
   </section>
 
-  <section class="section local-links" aria-labelledby="local-links-heading">
+  <section class="section local-links" id="southwest-florida-mortgage-support" aria-labelledby="local-links-heading">
     <div class="container local-links__inner">
       <div>
         <p class="eyebrow">Local guidance</p>
@@ -71,14 +73,12 @@ const services = (await getCollection('services'))
         </p>
       </div>
       <div class="local-links__list">
-        <a class="card local-link" href="/locations/naples-mortgage-broker/">
-          <span>Naples Mortgage Broker</span>
-          <small>Mortgage guidance for Naples buyers and homeowners.</small>
-        </a>
-        <a class="card local-link" href="/locations/fort-myers-mortgage-broker/">
-          <span>Fort Myers Mortgage Broker</span>
-          <small>Loan support for Fort Myers purchases and refinances.</small>
-        </a>
+        {locations.map((location) => (
+          <a class="card local-link" href={`/locations/${location.data.slug}/`}>
+            <span>{location.data.title}</span>
+            <small>{location.data.summary}</small>
+          </a>
+        ))}
       </div>
     </div>
   </section>

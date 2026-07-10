@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
+
+const services = (await getCollection('services'))
+  .sort((a, b) => a.data.order - b.data.order);
+const locations = (await getCollection('locations'))
+  .sort((a, b) => a.data.city.localeCompare(b.data.city));
+---
+
+<BaseLayout
+  title="Hipotecas en Florida en Espanol"
+  description="Florida Best Mortgage ofrece orientacion hipotecaria en espanol para compra, refinanciamiento, FHA, VA, primeros compradores, HELOC y opciones en Southwest Florida."
+  schema={[
+    mortgageBrokerSchema(),
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Espanol', url: new URL('/es/', site.url).toString() }
+    ])
+  ]}
+>
+  <Hero
+    eyebrow="Servicio en espanol"
+    title="Orientacion hipotecaria en Florida"
+    lead={`Hable con ${site.advisor.name} sobre compra de vivienda, refinanciamiento, FHA, VA, HELOC, compradores por primera vez y opciones locales en Southwest Florida.`}
+    primaryHref="/contact/"
+    primaryLabel="Contactar a Maria"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Llamar ${site.phone}`}
+  />
+
+  <section class="section spanish-index" aria-labelledby="spanish-services-heading">
+    <div class="container spanish-index__grid">
+      <div>
+        <p class="eyebrow">Opciones de prestamo</p>
+        <h2 id="spanish-services-heading">Servicios hipotecarios</h2>
+        <p class="lead">Estas paginas mantienen la estructura editable para que Codex pueda ampliarlas con mas contenido en espanol.</p>
+        <div class="link-list">
+          {services.map((service) => (
+            <a href={`/es/services/${service.data.slug}/`}>{service.data.title}</a>
+          ))}
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Areas locales</p>
+        <h2>Southwest Florida</h2>
+        <p class="lead">Ayuda local para compradores y propietarios en Naples, Fort Myers, Cape Coral y comunidades cercanas.</p>
+        <div class="link-list">
+          {locations.map((location) => (
+            <a href={`/locations/${location.data.slug}/`}>{location.data.title}</a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactPanel
+    title="Hablemos de sus opciones hipotecarias"
+    text="Maria puede ayudarle a entender documentos, pagos estimados, requisitos del prestamo y proximos pasos en ingles o espanol."
+  />
+</BaseLayout>
+
+<style>
+  .spanish-index {
+    background: #ffffff;
+  }
+
+  .spanish-index__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(28px, 5vw, 56px);
+  }
+
+  .spanish-index h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    line-height: 1.08;
+  }
+
+  .spanish-index .lead {
+    margin: 14px 0 22px;
+  }
+
+  .link-list {
+    display: grid;
+    gap: 10px;
+  }
+
+  .link-list a {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    text-decoration: none;
+    font-weight: 800;
+  }
+
+  @media (max-width: 820px) {
+    .spanish-index__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

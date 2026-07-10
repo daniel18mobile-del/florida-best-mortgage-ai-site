@@ -5,7 +5,7 @@ import Hero from '@components/Hero.astro';
 import CtaBand from '@components/CtaBand.astro';
 import ContactPanel from '@components/ContactPanel.astro';
 import { site } from '@data/site';
-import { blogPostingSchema, mortgageBrokerSchema } from '@utils/schema';
+import { blogPostingSchema, breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -35,6 +35,11 @@ const formatDate = (date: Date) =>
   ogType="article"
   schema={[
     mortgageBrokerSchema(),
+    breadcrumbSchema([
+      { name: 'Home', url: site.url },
+      { name: 'Blog', url: new URL('/blog/', site.url).toString() },
+      { name: post.data.title, url: postUrl }
+    ]),
     blogPostingSchema({
       title: post.data.title,
       description: post.data.description,
