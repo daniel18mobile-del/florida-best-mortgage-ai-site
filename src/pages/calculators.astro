@@ -48,7 +48,7 @@ const tools = [
       <div class="calculator-guide__header">
         <p class="eyebrow">Planning tools</p>
         <h2 id="calculator-guide-heading">What to calculate first</h2>
-        <p class="lead">Use these prompts to prepare for a more accurate preapproval or refinance conversation.</p>
+        <p class="lead">Use these estimates to prepare for a more accurate preapproval or refinance conversation.</p>
       </div>
       <div class="grid">
         {tools.map((tool) => (
@@ -57,6 +57,110 @@ const tools = [
             <p>{tool.text}</p>
           </article>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section mortgage-tools" aria-labelledby="mortgage-tools-heading">
+    <div class="container mortgage-tools__inner">
+      <div class="mortgage-tools__header">
+        <p class="eyebrow">Calculator workspace</p>
+        <h2 id="mortgage-tools-heading">Run the numbers</h2>
+        <p class="lead">
+          These estimates are for planning only. Taxes, insurance, mortgage insurance, HOA dues, credit, property type, and lender review can change the final payment or loan options.
+        </p>
+      </div>
+
+      <div class="mortgage-tools__grid">
+        <article class="card tool-card" aria-labelledby="payment-calculator-heading">
+          <h3 id="payment-calculator-heading">Payment estimate</h3>
+          <div class="tool-card__fields">
+            <label>
+              Purchase price
+              <input id="purchase-price" type="number" min="0" step="1000" value="450000" inputmode="decimal" />
+            </label>
+            <label>
+              Down payment
+              <input id="down-payment" type="number" min="0" step="1000" value="45000" inputmode="decimal" />
+            </label>
+            <label>
+              Interest rate
+              <input id="interest-rate" type="number" min="0" step="0.125" value="6.75" inputmode="decimal" />
+            </label>
+            <label>
+              Loan term
+              <select id="loan-term">
+                <option value="30" selected>30 years</option>
+                <option value="20">20 years</option>
+                <option value="15">15 years</option>
+                <option value="10">10 years</option>
+              </select>
+            </label>
+            <label>
+              Annual property tax
+              <input id="annual-tax" type="number" min="0" step="100" value="5200" inputmode="decimal" />
+            </label>
+            <label>
+              Annual insurance
+              <input id="annual-insurance" type="number" min="0" step="100" value="3600" inputmode="decimal" />
+            </label>
+            <label>
+              Monthly HOA/condo dues
+              <input id="monthly-hoa" type="number" min="0" step="25" value="0" inputmode="decimal" />
+            </label>
+          </div>
+          <div class="tool-card__result" aria-live="polite">
+            <span>Estimated monthly payment</span>
+            <strong id="payment-result">$0</strong>
+            <small id="payment-breakdown">Principal and interest plus entered taxes, insurance, and HOA dues.</small>
+          </div>
+        </article>
+
+        <article class="card tool-card" aria-labelledby="refinance-calculator-heading">
+          <h3 id="refinance-calculator-heading">Refinance break-even</h3>
+          <div class="tool-card__fields">
+            <label>
+              Current monthly payment
+              <input id="current-payment" type="number" min="0" step="25" value="3200" inputmode="decimal" />
+            </label>
+            <label>
+              New monthly payment
+              <input id="new-payment" type="number" min="0" step="25" value="2900" inputmode="decimal" />
+            </label>
+            <label>
+              Estimated closing costs
+              <input id="closing-costs" type="number" min="0" step="100" value="6500" inputmode="decimal" />
+            </label>
+          </div>
+          <div class="tool-card__result" aria-live="polite">
+            <span>Estimated break-even</span>
+            <strong id="refi-result">0 months</strong>
+            <small id="refi-breakdown">Based on monthly payment savings before other refinance tradeoffs.</small>
+          </div>
+        </article>
+
+        <article class="card tool-card" aria-labelledby="equity-calculator-heading">
+          <h3 id="equity-calculator-heading">Home equity snapshot</h3>
+          <div class="tool-card__fields">
+            <label>
+              Estimated home value
+              <input id="home-value" type="number" min="0" step="1000" value="550000" inputmode="decimal" />
+            </label>
+            <label>
+              Current mortgage balance
+              <input id="mortgage-balance" type="number" min="0" step="1000" value="325000" inputmode="decimal" />
+            </label>
+            <label>
+              Target combined LTV
+              <input id="target-ltv" type="number" min="0" max="100" step="1" value="80" inputmode="decimal" />
+            </label>
+          </div>
+          <div class="tool-card__result" aria-live="polite">
+            <span>Estimated available equity</span>
+            <strong id="equity-result">$0</strong>
+            <small id="equity-breakdown">Subject to lender limits, property review, credit, income, and program rules.</small>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -134,4 +238,154 @@ const tools = [
     gap: 16px;
     max-width: 820px;
   }
+
+  .mortgage-tools {
+    background: #ffffff;
+  }
+
+  .mortgage-tools__inner {
+    display: grid;
+    gap: 28px;
+  }
+
+  .mortgage-tools__header {
+    max-width: 820px;
+  }
+
+  .mortgage-tools__header h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .mortgage-tools__header .lead {
+    margin: 14px 0 0;
+  }
+
+  .mortgage-tools__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 24px;
+    align-items: start;
+  }
+
+  .tool-card {
+    display: grid;
+    gap: 18px;
+  }
+
+  .tool-card h3 {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .tool-card__fields {
+    display: grid;
+    gap: 14px;
+  }
+
+  .tool-card__result {
+    display: grid;
+    gap: 6px;
+    border-radius: var(--radius);
+    background: #eef5f8;
+    padding: 18px;
+  }
+
+  .tool-card__result span {
+    color: var(--color-muted);
+    font-size: 0.88rem;
+    font-weight: 850;
+    text-transform: uppercase;
+  }
+
+  .tool-card__result strong {
+    color: var(--color-primary-dark);
+    font-size: clamp(1.8rem, 4vw, 2.4rem);
+    line-height: 1;
+  }
+
+  .tool-card__result small {
+    color: var(--color-muted);
+  }
 </style>
+
+<script>
+  const currency = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 0
+  });
+
+  const numberValue = (id: string) => {
+    const element = document.getElementById(id);
+    return element instanceof HTMLInputElement || element instanceof HTMLSelectElement
+      ? Number(element.value) || 0
+      : 0;
+  };
+
+  const setText = (id: string, value: string) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  };
+
+  function calculatePayment() {
+    const price = numberValue('purchase-price');
+    const downPayment = numberValue('down-payment');
+    const principal = Math.max(price - downPayment, 0);
+    const annualRate = numberValue('interest-rate') / 100;
+    const months = numberValue('loan-term') * 12;
+    const monthlyRate = annualRate / 12;
+    const principalAndInterest = monthlyRate > 0
+      ? principal * (monthlyRate * (1 + monthlyRate) ** months) / ((1 + monthlyRate) ** months - 1)
+      : principal / Math.max(months, 1);
+    const taxes = numberValue('annual-tax') / 12;
+    const insurance = numberValue('annual-insurance') / 12;
+    const hoa = numberValue('monthly-hoa');
+    const total = principalAndInterest + taxes + insurance + hoa;
+
+    setText('payment-result', currency.format(total));
+    setText(
+      'payment-breakdown',
+      `${currency.format(principalAndInterest)} principal and interest + ${currency.format(taxes)} taxes + ${currency.format(insurance)} insurance + ${currency.format(hoa)} HOA/dues.`
+    );
+  }
+
+  function calculateRefinance() {
+    const savings = numberValue('current-payment') - numberValue('new-payment');
+    const costs = numberValue('closing-costs');
+    if (savings <= 0) {
+      setText('refi-result', 'No monthly savings');
+      setText('refi-breakdown', 'The new payment is not lower than the current payment based on the numbers entered.');
+      return;
+    }
+
+    const months = Math.ceil(costs / savings);
+    setText('refi-result', `${months} months`);
+    setText('refi-breakdown', `${currency.format(costs)} closing costs / ${currency.format(savings)} monthly savings.`);
+  }
+
+  function calculateEquity() {
+    const value = numberValue('home-value');
+    const balance = numberValue('mortgage-balance');
+    const targetLtv = numberValue('target-ltv') / 100;
+    const maxDebt = value * targetLtv;
+    const available = Math.max(maxDebt - balance, 0);
+
+    setText('equity-result', currency.format(available));
+    setText('equity-breakdown', `At ${Math.round(targetLtv * 100)}% combined LTV, estimated max debt is ${currency.format(maxDebt)} before lender review.`);
+  }
+
+  function updateCalculators() {
+    calculatePayment();
+    calculateRefinance();
+    calculateEquity();
+  }
+
+  document.querySelectorAll('.mortgage-tools input, .mortgage-tools select').forEach((element) => {
+    element.addEventListener('input', updateCalculators);
+    element.addEventListener('change', updateCalculators);
+  });
+
+  updateCalculators();
+</script>
