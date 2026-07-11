@@ -13,7 +13,7 @@ faqs:
 
 Buying your first home in Florida comes with a lot of moving parts: loan type, down payment, closing costs, inspections, insurance, taxes, and the pace of the local market. You deserve a clear explanation before you sign anything.
 
-Maria and Florida Best Mortgage help first-time buyers compare options without pressure. We can walk through conventional, FHA, VA, and eligible assistance programs when available, with service in English and Spanish.
+Maria and Dinerofacil LLC help first-time buyers compare options without pressure. We can walk through conventional, FHA, VA, and eligible assistance programs when available, with service in English and Spanish.
 
 ## Program Options
 

@@ -4,7 +4,7 @@ slug: "dscr-loans-florida"
 summary: "DSCR loan guidance for Florida real estate investors who want to evaluate rental-property financing based on property income potential."
 order: 8
 seo:
-  title: "DSCR Loans in Florida | Florida Best Mortgage"
+  title: "DSCR Loans in Florida | Dinerofacil LLC"
   description: "Learn how DSCR loans may help Florida rental property investors compare financing based on rental income, property cash flow, and lender rules."
 faqs:
   - question: "What is a DSCR loan?"
@@ -15,7 +15,7 @@ faqs:
 
 DSCR stands for debt service coverage ratio. In simple terms, the lender looks at whether the rental property income can support the mortgage payment under that lender's program rules.
 
-Florida Best Mortgage can help investors compare DSCR, conventional investment-property, Non-QM, and other financing paths. This can be useful for long-term rentals, seasonal rentals, and portfolio planning.
+Dinerofacil LLC can help investors compare DSCR, conventional investment-property, Non-QM, and other financing paths. This can be useful for long-term rentals, seasonal rentals, and portfolio planning.
 
 ## DSCR Loan Review Items
 

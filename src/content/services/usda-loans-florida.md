@@ -4,7 +4,7 @@ slug: "usda-loans-florida"
 summary: "USDA loan guidance for eligible Florida buyers looking at qualifying rural and suburban areas with low or no down payment options."
 order: 12
 seo:
-  title: "USDA Loans in Florida | Florida Best Mortgage"
+  title: "USDA Loans in Florida | Dinerofacil LLC"
   description: "Learn about USDA loan eligibility in Florida, including eligible areas, income limits, property requirements, and buyer documentation."
 faqs:
   - question: "Are USDA loans only for farms?"

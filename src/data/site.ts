@@ -1,5 +1,5 @@
 export const site = {
-  name: 'Florida Best Mortgage',
+  name: 'Dinerofacil LLC',
   legalName: 'Dinerofacil LLC',
   url: 'https://floridabestmortgage.com',
   description: 'Florida mortgage guidance for home buyers, refinancers, veterans, and homeowners exploring loan options.',

@@ -13,7 +13,7 @@ faqs:
 
 Home equity can be a useful tool when it is handled carefully. Florida homeowners may consider a HELOC or home equity loan for renovations, debt consolidation, major expenses, or financial flexibility.
 
-Maria and Florida Best Mortgage can help you compare the structure, costs, and risks before you borrow against your home. Guidance is available in English and Spanish.
+Maria and Dinerofacil LLC can help you compare the structure, costs, and risks before you borrow against your home. Guidance is available in English and Spanish.
 
 ## HELOC vs. Home Equity Loan
 

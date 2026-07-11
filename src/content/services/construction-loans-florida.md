@@ -4,10 +4,10 @@ slug: "construction-loans-florida"
 summary: "Construction loan guidance for Florida buyers building a new home, comparing builder options, or planning land and construction financing."
 order: 10
 seo:
-  title: "Construction Loans in Florida | Florida Best Mortgage"
+  title: "Construction Loans in Florida | Dinerofacil LLC"
   description: "Explore Florida construction loan guidance for building a home, reviewing builder documents, land questions, draw schedules, and permanent financing."
 faqs:
-  - question: "Can Florida Best Mortgage help with construction loan questions?"
+  - question: "Can Dinerofacil LLC help with construction loan questions?"
     answer: "Yes. We can help you understand common construction financing paths, documents, builder review items, and when a lender may need more detail."
   - question: "Is a construction loan the same as a regular mortgage?"
     answer: "No. Construction financing can involve builder approval, plans, budgets, draws, inspections, land details, and a transition to permanent financing."
@@ -15,7 +15,7 @@ faqs:
 
 Construction financing needs more planning than a standard purchase mortgage. The lender may review the borrower, land, builder, plans, budget, timeline, insurance, draw schedule, and final permanent loan.
 
-Florida Best Mortgage helps buyers ask the right questions before they commit to a builder or land purchase. The goal is to understand the full financing path before construction begins.
+Dinerofacil LLC helps buyers ask the right questions before they commit to a builder or land purchase. The goal is to understand the full financing path before construction begins.
 
 ## What to Prepare
 

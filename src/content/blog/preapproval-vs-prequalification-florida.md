@@ -8,7 +8,7 @@ tags:
   - "home buying"
   - "offer strategy"
 seo:
-  title: "Preapproval vs Prequalification Florida | Florida Best Mortgage"
+  title: "Preapproval vs Prequalification Florida | Dinerofacil LLC"
   description: "Compare mortgage preapproval and prequalification in Florida so buyers understand documents, offer strength, underwriting, and next steps."
 ---
 

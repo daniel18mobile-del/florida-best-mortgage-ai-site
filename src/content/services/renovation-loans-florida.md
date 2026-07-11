@@ -4,7 +4,7 @@ slug: "renovation-loans-florida"
 summary: "Renovation loan guidance for Florida buyers and homeowners who want to finance improvements, repairs, or updates with the mortgage plan."
 order: 11
 seo:
-  title: "Renovation Loans in Florida | Florida Best Mortgage"
+  title: "Renovation Loans in Florida | Dinerofacil LLC"
   description: "Learn about Florida renovation loan questions for repairs, upgrades, contractor bids, property condition, and financing home improvements."
 faqs:
   - question: "Can renovation costs be included with a mortgage?"

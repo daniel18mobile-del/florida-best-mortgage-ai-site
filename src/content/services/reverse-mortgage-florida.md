@@ -4,7 +4,7 @@ slug: "reverse-mortgage-florida"
 summary: "Florida reverse mortgage guidance for eligible homeowners who want to understand equity, age requirements, obligations, counseling, and alternatives."
 order: 13
 seo:
-  title: "Reverse Mortgage Florida | Florida Best Mortgage"
+  title: "Reverse Mortgage Florida | Dinerofacil LLC"
   description: "Review Florida reverse mortgage basics, homeowner responsibilities, counseling, equity questions, and alternatives for retirement planning."
 faqs:
   - question: "Who may qualify for a reverse mortgage?"
@@ -15,7 +15,7 @@ faqs:
 
 A reverse mortgage can be a planning tool for some Florida homeowners, but it should be reviewed carefully. The decision affects home equity, future plans, heirs, taxes, insurance, and long-term housing needs.
 
-Florida Best Mortgage can help you understand basic questions and compare alternatives before you make a decision.
+Dinerofacil LLC can help you understand basic questions and compare alternatives before you make a decision.
 
 ## What to Discuss First
 

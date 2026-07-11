@@ -4,7 +4,7 @@ slug: "golden-gate-mortgage-broker"
 city: "Golden Gate"
 summary: "Golden Gate mortgage guidance for first-time buyers, FHA, VA, conventional loans, refinance planning, and home equity questions."
 seo:
-  title: "Golden Gate Mortgage Broker | Florida Best Mortgage"
+  title: "Golden Gate Mortgage Broker | Dinerofacil LLC"
   description: "Work with a Golden Gate mortgage broker for home purchase, preapproval, FHA, VA, conventional, refinance, and home equity loan guidance."
 faqs:
   - question: "Can first-time buyers in Golden Gate get preapproved?"
@@ -15,7 +15,7 @@ faqs:
 
 Golden Gate buyers often want clear guidance on first-time buyer options, FHA loans, conventional financing, VA eligibility, and how much cash may be needed to close.
 
-Florida Best Mortgage helps Golden Gate buyers and homeowners compare loan paths and prepare documents before the process becomes rushed.
+Dinerofacil LLC helps Golden Gate buyers and homeowners compare loan paths and prepare documents before the process becomes rushed.
 
 ## Mortgage Help in Golden Gate
 

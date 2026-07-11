@@ -4,7 +4,7 @@ slug: "jumbo-loans-florida"
 summary: "Jumbo mortgage guidance for Florida buyers financing higher-value homes, waterfront properties, luxury condos, second homes, or complex income files."
 order: 7
 seo:
-  title: "Jumbo Loans in Florida | Florida Best Mortgage"
+  title: "Jumbo Loans in Florida | Dinerofacil LLC"
   description: "Review Florida jumbo loan guidance for higher-value homes, Naples luxury property, condos, reserves, documentation, and mortgage options."
 faqs:
   - question: "What makes a loan a jumbo loan?"

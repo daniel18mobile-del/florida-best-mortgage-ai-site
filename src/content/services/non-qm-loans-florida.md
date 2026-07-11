@@ -4,7 +4,7 @@ slug: "non-qm-loans-florida"
 summary: "Non-QM mortgage guidance for Florida borrowers with self-employment income, bank statements, assets, investment properties, or nontraditional files."
 order: 9
 seo:
-  title: "Non-QM Loans in Florida | Florida Best Mortgage"
+  title: "Non-QM Loans in Florida | Dinerofacil LLC"
   description: "Explore Florida Non-QM loan options for self-employed borrowers, bank statement income, asset-based files, investors, and complex mortgage scenarios."
 faqs:
   - question: "Who might consider a Non-QM loan?"
@@ -15,7 +15,7 @@ faqs:
 
 Non-QM loans can help some Florida borrowers who do not fit a standard conventional, FHA, or VA path. These programs may consider alternative documentation, investment-property income, assets, or other file details.
 
-Florida Best Mortgage helps borrowers compare Non-QM with traditional programs so they understand cost, documentation, tradeoffs, and long-term plans.
+Dinerofacil LLC helps borrowers compare Non-QM with traditional programs so they understand cost, documentation, tradeoffs, and long-term plans.
 
 ## Common Non-QM Scenarios
 

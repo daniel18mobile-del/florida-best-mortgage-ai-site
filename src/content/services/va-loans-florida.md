@@ -4,7 +4,7 @@ slug: "va-loans-florida"
 summary: "VA loans can offer eligible service members, veterans, and qualifying spouses a strong Florida home financing option with benefits defined by VA and lender guidelines."
 order: 2
 seo:
-  title: "VA Loans in Florida | Florida Best Mortgage"
+  title: "VA Loans in Florida | Dinerofacil LLC"
   description: "Explore VA home loan options in Florida, including eligibility, funding fee basics, property requirements, and preapproval steps."
 faqs:
   - question: "Do VA loans require a down payment?"
@@ -13,7 +13,7 @@ faqs:
 
 VA loans are designed to support eligible military borrowers, veterans, and certain surviving spouses. In Florida, they can be especially helpful for buyers who want to preserve cash while still making a competitive, well-documented offer.
 
-Florida Best Mortgage can help you understand VA eligibility, your Certificate of Eligibility, the funding fee, and how VA property standards may affect the home you choose. Maria's approach is practical and direct, with support available in English and Spanish.
+Dinerofacil LLC can help you understand VA eligibility, your Certificate of Eligibility, the funding fee, and how VA property standards may affect the home you choose. Maria's approach is practical and direct, with support available in English and Spanish.
 
 ## How the Process Works
 

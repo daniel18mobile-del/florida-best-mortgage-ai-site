@@ -4,7 +4,7 @@ slug: "condo-loans-florida"
 summary: "Florida condo loan guidance for buyers who need help reviewing association details, insurance, occupancy, reserves, and loan program fit."
 order: 6
 seo:
-  title: "Condo Loans in Florida | Florida Best Mortgage"
+  title: "Condo Loans in Florida | Dinerofacil LLC"
   description: "Learn what Florida condo buyers should know about condo loan approval, association review, insurance, occupancy, reserves, and mortgage options."
 faqs:
   - question: "Why can condo financing take extra review?"

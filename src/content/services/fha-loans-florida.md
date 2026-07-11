@@ -4,7 +4,7 @@ slug: "fha-loans-florida"
 summary: "FHA loans can help Florida buyers purchase a home with flexible credit guidelines and a low down payment option, subject to program and lender requirements."
 order: 1
 seo:
-  title: "FHA Loans in Florida | Florida Best Mortgage"
+  title: "FHA Loans in Florida | Dinerofacil LLC"
   description: "Learn how FHA loans work in Florida, including down payment options, credit considerations, property requirements, and practical next steps."
 faqs:
   - question: "Who may benefit from an FHA loan in Florida?"
@@ -13,7 +13,7 @@ faqs:
 
 FHA loans are insured by the Federal Housing Administration and are commonly used by Florida buyers who want a practical path into homeownership. They are not only for first-time buyers, and they can be useful when conventional financing is not the best fit.
 
-Maria and the Florida Best Mortgage team help you compare FHA with conventional and other loan options so you can understand the tradeoffs before you move forward. Help is available in English and Spanish.
+Maria and the Dinerofacil LLC team help you compare FHA with conventional and other loan options so you can understand the tradeoffs before you move forward. Help is available in English and Spanish.
 
 ## What to Expect
 

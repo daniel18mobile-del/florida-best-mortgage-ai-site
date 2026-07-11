@@ -8,7 +8,7 @@ tags:
   - "home buying"
   - "Florida mortgage"
 seo:
-  title: "Florida Mortgage Preapproval Guide | Florida Best Mortgage"
+  title: "Florida Mortgage Preapproval Guide | Dinerofacil LLC"
   description: "Learn how mortgage preapproval works in Florida, what documents to prepare, and how to use a preapproval wisely when shopping for a home."
 ---
 
@@ -20,7 +20,7 @@ Preapproval is not a guarantee of final loan approval. The property, appraisal, 
 
 Most buyers should be ready to provide income documents, bank statements, identification, credit authorization, and information about debts or other real estate owned. Self-employed buyers may need business returns, profit and loss details, or additional documentation.
 
-Maria and Florida Best Mortgage will tell you what is needed for your situation instead of giving you a one-size-fits-all checklist. Help is available in English and Spanish.
+Maria and Dinerofacil LLC will tell you what is needed for your situation instead of giving you a one-size-fits-all checklist. Help is available in English and Spanish.
 
 ## What Preapproval Helps You Understand
 
