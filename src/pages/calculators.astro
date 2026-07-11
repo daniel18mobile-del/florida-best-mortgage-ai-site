@@ -37,29 +37,11 @@ const tools = [
     eyebrow="Mortgage calculators"
     title="Estimate the numbers before you choose a loan"
     lead="Calculators are useful starting points, but Florida payments can change when taxes, insurance, flood coverage, condo fees, and program rules are included."
-    primaryHref="/contact/"
-    primaryLabel="Review numbers with Maria"
-    secondaryHref={site.phoneHref}
-    secondaryLabel={`Call ${site.phone}`}
+    primaryHref="#mortgage-tools-heading"
+    primaryLabel="Use the calculators"
+    secondaryHref="/contact/"
+    secondaryLabel="Review numbers with Maria"
   />
-
-  <section class="section calculator-guide" aria-labelledby="calculator-guide-heading">
-    <div class="container">
-      <div class="calculator-guide__header">
-        <p class="eyebrow">Planning tools</p>
-        <h2 id="calculator-guide-heading">What to calculate first</h2>
-        <p class="lead">Use these estimates to prepare for a more accurate preapproval or refinance conversation.</p>
-      </div>
-      <div class="grid">
-        {tools.map((tool) => (
-          <article class="card calculator-card">
-            <h3>{tool.title}</h3>
-            <p>{tool.text}</p>
-          </article>
-        ))}
-      </div>
-    </div>
-  </section>
 
   <section class="section mortgage-tools" aria-labelledby="mortgage-tools-heading">
     <div class="container mortgage-tools__inner">
@@ -161,6 +143,24 @@ const tools = [
             <small id="equity-breakdown">Subject to lender limits, property review, credit, income, and program rules.</small>
           </div>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section calculator-guide" aria-labelledby="calculator-guide-heading">
+    <div class="container">
+      <div class="calculator-guide__header">
+        <p class="eyebrow">Planning tools</p>
+        <h2 id="calculator-guide-heading">What to calculate first</h2>
+        <p class="lead">Use these estimates to prepare for a more accurate preapproval or refinance conversation.</p>
+      </div>
+      <div class="grid">
+        {tools.map((tool) => (
+          <article class="card calculator-card">
+            <h3>{tool.title}</h3>
+            <p>{tool.text}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
