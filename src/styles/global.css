@@ -407,6 +407,31 @@ select[aria-invalid="true"]:focus {
   color: var(--color-primary-dark);
 }
 
+.site-header__language {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid rgba(21, 92, 127, 0.22);
+  border-radius: var(--radius);
+  background: #ffffff;
+  color: var(--color-primary);
+  font-size: 0.9rem;
+  font-weight: 850;
+  padding: 0.55rem 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 22px rgba(17, 26, 36, 0.08);
+}
+
+.site-header__language:hover,
+.site-header__language--active {
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+  color: #ffffff;
+  box-shadow: 0 14px 30px rgba(21, 92, 127, 0.22);
+}
+
 .site-header__action {
   flex: 0 0 auto;
   min-height: 42px;

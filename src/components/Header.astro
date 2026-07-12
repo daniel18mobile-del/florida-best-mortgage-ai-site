@@ -1,6 +1,25 @@
 ---
 import { primaryNav } from '@data/navigation';
 import { site } from '@data/site';
+
+const pathname = Astro.url.pathname;
+const isSpanishPage = pathname === '/es/' || pathname.startsWith('/es/');
+
+const spanishRoutes = new Set(['/about/', '/contact/', '/services/']);
+const languageHref = (() => {
+  if (isSpanishPage) {
+    const englishPath = pathname.replace(/^\/es/, '') || '/';
+    return englishPath === '' ? '/' : englishPath;
+  }
+
+  if (spanishRoutes.has(pathname) || pathname.startsWith('/services/')) {
+    return `/es${pathname}`;
+  }
+
+  return '/es/';
+})();
+
+const languageLabel = isSpanishPage ? 'English' : 'Espanol';
 ---
 
 <header class="site-header">
@@ -29,6 +48,14 @@ import { site } from '@data/site';
       </ul>
     </nav>
     <div class="site-header__actions" aria-label="Contact actions">
+      <a
+        class:list={['site-header__language', { 'site-header__language--active': !isSpanishPage }]}
+        href={languageHref}
+        aria-label={isSpanishPage ? 'Switch to English' : 'Ver sitio en Espanol'}
+        aria-current={!isSpanishPage ? 'page' : undefined}
+      >
+        {languageLabel}
+      </a>
       <a class="site-header__phone" href={site.phoneHref} aria-label={`Call ${site.name} at ${site.phone}`}>
         {site.phone}
       </a>

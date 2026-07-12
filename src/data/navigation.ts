@@ -4,8 +4,7 @@ export const primaryNav = [
   { label: 'Calculators', href: '/calculators/' },
   { label: 'About', href: '/about/' },
   { label: 'Blog', href: '/blog/' },
-  { label: 'Contact', href: '/contact/' },
-  { label: 'Espanol', href: '/es/' }
+  { label: 'Contact', href: '/contact/' }
 ];
 
 export const footerNav = [
