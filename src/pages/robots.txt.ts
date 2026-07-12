@@ -14,6 +14,7 @@ User-agent: ChatGPT-User
 Allow: /
 
 Sitemap: ${site.url}/sitemap-index.xml
+Sitemap: ${site.url}/sitemap.xml
 LLMs: ${site.url}/llms.txt
 `, {
     headers: {
