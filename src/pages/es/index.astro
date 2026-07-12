@@ -27,11 +27,25 @@ const locations = (await getCollection('locations'))
     eyebrow="Servicio en espanol"
     title="Orientacion hipotecaria en Florida"
     lead={`Hable con ${site.advisor.name} sobre compra de vivienda, refinanciamiento, FHA, VA, HELOC, compradores por primera vez y opciones locales en Southwest Florida.`}
-    primaryHref="/contact/"
+    primaryHref="/es/contact/"
     primaryLabel="Contactar a Maria"
-    secondaryHref={site.phoneHref}
-    secondaryLabel={`Llamar ${site.phone}`}
+    secondaryHref="/es/services/"
+    secondaryLabel="Ver servicios"
   />
+
+  <section class="section spanish-links" aria-labelledby="spanish-links-heading">
+    <div class="container spanish-links__inner">
+      <div>
+        <p class="eyebrow">Recursos en espanol</p>
+        <h2 id="spanish-links-heading">Informacion hipotecaria bilingue</h2>
+      </div>
+      <nav class="spanish-links__nav" aria-label="Paginas principales en espanol">
+        <a class="card" href="/es/services/">Servicios hipotecarios</a>
+        <a class="card" href="/es/about/">Sobre Dinerofacil LLC</a>
+        <a class="card" href="/es/contact/">Contacto en espanol</a>
+      </nav>
+    </div>
+  </section>
 
   <section class="section spanish-index" aria-labelledby="spanish-services-heading">
     <div class="container spanish-index__grid">
@@ -69,6 +83,35 @@ const locations = (await getCollection('locations'))
     background: #ffffff;
   }
 
+  .spanish-links {
+    background: #ffffff;
+  }
+
+  .spanish-links__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+    gap: clamp(24px, 5vw, 56px);
+    align-items: start;
+  }
+
+  .spanish-links h2 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.5rem);
+    line-height: 1.08;
+  }
+
+  .spanish-links__nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+    gap: 16px;
+  }
+
+  .spanish-links__nav a {
+    color: var(--color-primary-dark);
+    font-weight: 850;
+    text-decoration: none;
+  }
+
   .spanish-index__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -99,6 +142,7 @@ const locations = (await getCollection('locations'))
   }
 
   @media (max-width: 820px) {
+    .spanish-links__inner,
     .spanish-index__grid {
       grid-template-columns: 1fr;
     }
