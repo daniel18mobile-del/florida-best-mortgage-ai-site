@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { mortgageBrokerSchema } from '@utils/schema';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('es-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  }).format(date);
+---
+
+<BaseLayout
+  title="Blog de Hipotecas en Florida"
+  description="Lea guias sobre hipotecas en Florida, preaprobacion, compra de vivienda, refinanciamiento y preparacion para el proceso de prestamo."
+  schema={mortgageBrokerSchema()}
+>
+  <Hero
+    eyebrow="Blog"
+    title="Articulos hipotecarios"
+    lead="Guias practicas para compradores y propietarios que quieren entender mejor las decisiones hipotecarias en Florida."
+    primaryHref="/es/contact/"
+    primaryLabel="Preguntar a Maria"
+    secondaryHref="/es/services/"
+    secondaryLabel="Ver servicios"
+  />
+
+  <section class="section blog-index" aria-labelledby="blog-index-heading">
+    <div class="container">
+      <div class="blog-index__header">
+        <p class="eyebrow">Guias recientes</p>
+        <h2 id="blog-index-heading">Recursos hipotecarios</h2>
+        <p class="lead">Algunos articulos completos estan en ingles mientras seguimos ampliando el contenido en espanol.</p>
+      </div>
+      <div class="grid">
+        {posts.map((post) => (
+          <article class="card post-card">
+            <p class="post-card__date">{formatDate(post.data.publishDate)}</p>
+            <h3><a href={`/blog/${post.data.slug}/`}>{post.data.title}</a></h3>
+            <p>{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <ul aria-label={`${post.data.title} tags`}>
+                {post.data.tags.map((tag) => <li>{tag}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactPanel
+    title="Tiene una pregunta hipotecaria?"
+    text="Llame o envie un correo para recibir orientacion sobre compra, refinanciamiento o home equity en Florida."
+  />
+</BaseLayout>
+
+<style>
+  .blog-index__header {
+    margin-bottom: 28px;
+    max-width: 780px;
+  }
+
+  .blog-index__header h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .blog-index__header .lead {
+    margin: 14px 0 0;
+  }
+
+  .post-card {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+  }
+
+  .post-card h3,
+  .post-card p,
+  .post-card ul {
+    margin: 0;
+  }
+
+  .post-card h3 {
+    font-size: 1.22rem;
+    line-height: 1.2;
+  }
+
+  .post-card h3 a {
+    text-decoration: none;
+  }
+
+  .post-card p {
+    color: var(--color-muted);
+  }
+
+  .post-card__date {
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .post-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .post-card li {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-soft);
+    color: var(--color-muted);
+    font-size: 0.86rem;
+    font-weight: 750;
+    padding: 0.35rem 0.55rem;
+  }
+</style>

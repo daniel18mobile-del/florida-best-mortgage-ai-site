@@ -17,6 +17,8 @@ export const footerNav = [
   { label: 'Licensing and Trust', href: '/licensing/' },
   { label: 'Hipotecas en Espanol', href: '/es/' },
   { label: 'Servicios en Espanol', href: '/es/services/' },
+  { label: 'Calculadoras en Espanol', href: '/es/calculators/' },
+  { label: 'Blog en Espanol', href: '/es/blog/' },
   { label: 'Sobre Nosotros en Espanol', href: '/es/about/' },
   { label: 'Contacto en Espanol', href: '/es/contact/' },
   { label: 'Naples Mortgage Broker', href: '/locations/naples-mortgage-broker/' },

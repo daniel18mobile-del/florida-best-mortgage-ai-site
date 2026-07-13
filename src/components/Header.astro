@@ -7,16 +7,16 @@ const isSpanishPage = pathname === '/es/' || pathname.startsWith('/es/');
 const spanishNavItems = [
   { key: 'home', label: 'Inicio', href: '/es/' },
   { key: 'services', label: 'Servicios', href: '/es/services/' },
-  { key: 'calculators', label: 'Calculators', href: '/calculators/' },
+  { key: 'calculadoras', label: 'Calculadoras', href: '/es/calculators/' },
   { key: 'about', label: 'Nosotros', href: '/es/about/' },
-  { key: 'blog', label: 'Blog', href: '/blog/' },
+  { key: 'blog', label: 'Blog', href: '/es/blog/' },
   { key: 'contact', label: 'Contacto', href: '/es/contact/' }
 ];
 const navItems = isSpanishPage
   ? spanishNavItems
   : primaryNav.map((item) => ({ ...item, key: item.label.toLowerCase() }));
 
-const spanishRoutes = new Set(['/about/', '/contact/', '/services/']);
+const spanishRoutes = new Set(['/about/', '/blog/', '/calculators/', '/contact/', '/services/']);
 const languageHref = (() => {
   if (isSpanishPage) {
     const englishPath = pathname.replace(/^\/es/, '') || '/';
