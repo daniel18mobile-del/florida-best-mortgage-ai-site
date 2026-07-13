@@ -28,6 +28,25 @@ const {
 const hasPrimaryAction = Boolean(primaryHref && primaryLabel);
 const hasSecondaryAction = Boolean(secondaryHref && secondaryLabel);
 const hasActions = hasPrimaryAction || hasSecondaryAction;
+const isSpanishPage = Astro.url.pathname === '/es/' || Astro.url.pathname.startsWith('/es/');
+
+const advisorCopy = isSpanishPage
+  ? {
+      ariaLabel: 'Puntos destacados de la asesora hipotecaria',
+      kicker: 'Guia local en Florida',
+      description: 'Apoyo hipotecario para compra, refinanciamiento, FHA, VA y preguntas sobre home equity.',
+      office: 'Oficina',
+      languages: 'Idiomas',
+      languagesValue: 'Ingles y espanol'
+    }
+  : {
+      ariaLabel: 'Mortgage advisor highlights',
+      kicker: 'Local Florida guidance',
+      description: 'Mortgage support for purchase, refinance, FHA, VA, and home equity questions.',
+      office: 'Office',
+      languages: 'Languages',
+      languagesValue: 'English and Spanish'
+    };
 ---
 
 <section class="hero section" style={posterSrc ? `--hero-poster: url('${posterSrc}')` : undefined}>
@@ -59,7 +78,7 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
       )}
     </div>
 
-    <aside class="hero__panel" aria-label="Mortgage advisor highlights">
+    <aside class="hero__panel" aria-label={advisorCopy.ariaLabel}>
       <img
         class="hero__portrait"
         src={site.advisor.image.src}
@@ -69,21 +88,21 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
         loading="eager"
         decoding="async"
       />
-      <p class="hero__panel-kicker">Local Florida guidance</p>
+      <p class="hero__panel-kicker">{advisorCopy.kicker}</p>
       <h2>Maria Zuluaga</h2>
-      <p>Mortgage support for purchase, refinance, FHA, VA, and home equity questions.</p>
+      <p>{advisorCopy.description}</p>
       <dl>
         <div>
           <dt>NMLS</dt>
           <dd>242841</dd>
         </div>
         <div>
-          <dt>Office</dt>
+          <dt>{advisorCopy.office}</dt>
           <dd>Naples, FL</dd>
         </div>
         <div>
-          <dt>Languages</dt>
-          <dd>English and Spanish</dd>
+          <dt>{advisorCopy.languages}</dt>
+          <dd>{advisorCopy.languagesValue}</dd>
         </div>
       </dl>
     </aside>

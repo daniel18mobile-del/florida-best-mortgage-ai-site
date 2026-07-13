@@ -7,15 +7,45 @@ type Props = {
   text?: string;
 };
 
+const isSpanishPage = Astro.url.pathname === '/es/' || Astro.url.pathname.startsWith('/es/');
+const defaultEyebrow = isSpanishPage ? 'Contacto' : 'Contact';
+const defaultTitle = isSpanishPage ? `Hable con ${site.advisor.name}` : `Talk with ${site.advisor.name}`;
+const defaultText = isSpanishPage
+  ? 'Reciba orientacion hipotecaria en Florida para su proxima compra, refinanciamiento o pregunta sobre home equity.'
+  : 'Get Florida mortgage guidance for your next purchase, refinance, or home equity question.';
+const contactCopy = isSpanishPage
+  ? {
+      advisorKicker: 'Asesora hipotecaria',
+      detailsHeading: 'Datos de contacto',
+      promptHeading: 'Inicie una conversacion hipotecaria',
+      promptText:
+        'Llame o envie un correo para recibir orientacion sobre opciones de prestamo, preaprobacion, refinanciamiento o home equity en Florida.',
+      callLabel: `Llamar ${site.phone}`,
+      emailLabel: `Enviar correo a ${site.advisor.name}`,
+      emailSubject: 'Solicitud de orientacion hipotecaria en Florida',
+      emailBody: `Hola ${site.advisor.name},\n\nMe gustaria recibir orientacion hipotecaria para:\n\n`
+    }
+  : {
+      advisorKicker: 'Mortgage advisor',
+      detailsHeading: 'Contact details',
+      promptHeading: 'Start a mortgage conversation',
+      promptText:
+        'Call or email for guidance on loan options, preapproval, refinancing, or home equity questions in Florida.',
+      callLabel: `Call ${site.phone}`,
+      emailLabel: `Email ${site.advisor.name}`,
+      emailSubject: 'Florida mortgage guidance request',
+      emailBody: `Hi ${site.advisor.name},\n\nI would like mortgage guidance for:\n\n`
+    };
+
 const {
-  eyebrow = 'Contact',
-  title = `Talk with ${site.advisor.name}`,
-  text = 'Get Florida mortgage guidance for your next purchase, refinance, or home equity question.'
+  eyebrow = defaultEyebrow,
+  title = defaultTitle,
+  text = defaultText
 } = Astro.props;
 
 const addressLine = `${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
-const emailSubject = encodeURIComponent('Florida mortgage guidance request');
-const emailBody = encodeURIComponent(`Hi ${site.advisor.name},\n\nI would like mortgage guidance for:\n\n`);
+const emailSubject = encodeURIComponent(contactCopy.emailSubject);
+const emailBody = encodeURIComponent(contactCopy.emailBody);
 const guidanceEmailHref = `${site.emailHref}?subject=${emailSubject}&body=${emailBody}`;
 ---
 
@@ -39,8 +69,8 @@ const guidanceEmailHref = `${site.emailHref}?subject=${emailSubject}&body=${emai
             decoding="async"
           />
           <div>
-            <p class="contact-panel__advisor-kicker">Mortgage advisor</p>
-            <h3 id="contact-details-heading">Contact details</h3>
+            <p class="contact-panel__advisor-kicker">{contactCopy.advisorKicker}</p>
+            <h3 id="contact-details-heading">{contactCopy.detailsHeading}</h3>
           </div>
         </div>
         <address>
@@ -53,13 +83,11 @@ const guidanceEmailHref = `${site.emailHref}?subject=${emailSubject}&body=${emai
       </section>
 
       <section class="card contact-panel__prompt" aria-labelledby="contact-prompt-heading">
-        <h3 id="contact-prompt-heading">Start a mortgage conversation</h3>
-        <p>
-          Call or email for guidance on loan options, preapproval, refinancing, or home equity questions in Florida.
-        </p>
+        <h3 id="contact-prompt-heading">{contactCopy.promptHeading}</h3>
+        <p>{contactCopy.promptText}</p>
         <div class="actions contact-panel__actions">
-          <a class="button" href={site.phoneHref}>Call {site.phone}</a>
-          <a class="button button--secondary" href={guidanceEmailHref}>Email {site.advisor.name}</a>
+          <a class="button" href={site.phoneHref}>{contactCopy.callLabel}</a>
+          <a class="button button--secondary" href={guidanceEmailHref}>{contactCopy.emailLabel}</a>
         </div>
       </section>
     </div>

@@ -3,20 +3,53 @@ import { footerNav } from '@data/navigation';
 import { site } from '@data/site';
 
 const year = new Date().getFullYear();
+const isSpanishPage = Astro.url.pathname === '/es/' || Astro.url.pathname.startsWith('/es/');
+const spanishFooterNav = [
+  { label: 'Inicio en espanol', href: '/es/' },
+  { label: 'Servicios hipotecarios', href: '/es/services/' },
+  { label: 'Calculadoras', href: '/es/calculators/' },
+  { label: 'Blog en espanol', href: '/es/blog/' },
+  { label: 'Sobre nosotros', href: '/es/about/' },
+  { label: 'Contacto', href: '/es/contact/' },
+  { label: 'Prestamos FHA', href: '/es/services/fha-loans-florida/' },
+  { label: 'Prestamos VA', href: '/es/services/va-loans-florida/' },
+  { label: 'Refinanciamiento', href: '/es/services/refinance-mortgage-florida/' },
+  { label: 'HELOC y home equity', href: '/es/services/heloc-home-equity-loans/' }
+];
+const localizedFooterNav = isSpanishPage ? spanishFooterNav : footerNav;
+const footerCopy = isSpanishPage
+  ? {
+      description:
+        'Orientacion hipotecaria en Florida para compradores, propietarios, veteranos y personas que desean comparar opciones de prestamo.',
+      navAria: 'Navegacion del pie de pagina',
+      navHeading: 'Recursos',
+      contactHeading: 'Contacto',
+      rights: 'Todos los derechos reservados.',
+      equalHousing:
+        'Maria Zuluaga, NMLS #242841, y Dinerofacil LLC, NMLS #2746598, ofrecen servicios de originacion hipotecaria en Florida. La informacion de este sitio es general y no constituye un compromiso de prestar ni extender credito. La aprobacion, tasas, terminos y programas dependen de la calificacion del prestatario, aprobacion del lender y requisitos aplicables. Equal Housing Opportunity.'
+    }
+  : {
+      description: site.description,
+      navAria: 'Footer navigation',
+      navHeading: 'Loan resources',
+      contactHeading: 'Contact',
+      rights: 'All rights reserved.',
+      equalHousing: site.equalHousingText
+    };
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__grid">
     <section class="site-footer__brand" aria-labelledby="footer-brand-heading">
       <h2 id="footer-brand-heading">{site.name}</h2>
-      <p>{site.description}</p>
+      <p>{footerCopy.description}</p>
       <p class="site-footer__nmls">{site.nmls}</p>
     </section>
 
-    <nav class="site-footer__nav" aria-label="Footer navigation">
-      <h2>Loan resources</h2>
+    <nav class="site-footer__nav" aria-label={footerCopy.navAria}>
+      <h2>{footerCopy.navHeading}</h2>
       <ul>
-        {footerNav.map((item) => (
+        {localizedFooterNav.map((item) => (
           <li>
             <a href={item.href}>{item.label}</a>
           </li>
@@ -25,7 +58,7 @@ const year = new Date().getFullYear();
     </nav>
 
     <section class="site-footer__contact" aria-labelledby="footer-contact-heading">
-      <h2 id="footer-contact-heading">Contact</h2>
+      <h2 id="footer-contact-heading">{footerCopy.contactHeading}</h2>
       <address>
         <a href={site.phoneHref}>{site.phone}</a>
         <a href={site.emailHref}>{site.email}</a>
@@ -36,7 +69,7 @@ const year = new Date().getFullYear();
   </div>
 
   <div class="container site-footer__bottom">
-    <p>&copy; {year} {site.legalName}. All rights reserved.</p>
-    <p>{site.equalHousingText}</p>
+    <p>&copy; {year} {site.legalName}. {footerCopy.rights}</p>
+    <p>{footerCopy.equalHousing}</p>
   </div>
 </footer>

@@ -29,6 +29,7 @@ const ogImageUrl = new URL(ogImage, site.url).toString();
 const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 const serializeJsonLd = (item: Schema) => JSON.stringify(item).replace(/</g, '\\u003c');
+const language = Astro.url.pathname === '/es/' || Astro.url.pathname.startsWith('/es/') ? 'es' : 'en';
 const tawkToScript = `<!--Start of Tawk.to Script-->
 <script type="text/javascript">
 var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
@@ -45,7 +46,7 @@ s0.parentNode.insertBefore(s1,s0);
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={language}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
