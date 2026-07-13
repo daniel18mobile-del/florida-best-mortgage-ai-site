@@ -2,10 +2,10 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
-import FaqList from '@components/FaqList.astro';
 import ContactPanel from '@components/ContactPanel.astro';
 import { site } from '@data/site';
-import { breadcrumbSchema, faqSchema, mortgageBrokerSchema } from '@utils/schema';
+import { getSpanishServiceCopy } from '@data/spanish';
+import { breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -17,6 +17,8 @@ export async function getStaticPaths() {
 }
 
 const { service } = Astro.props;
+const allServices = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const spanishCopy = getSpanishServiceCopy(service.data.slug, service.data);
 const spanishUrl = new URL(`/es/services/${service.data.slug}/`, site.url).toString();
 const schema = [
   mortgageBrokerSchema(),
@@ -24,32 +26,31 @@ const schema = [
     { name: 'Home', url: site.url },
     { name: 'Espanol', url: new URL('/es/', site.url).toString() },
     { name: 'Servicios', url: new URL('/es/services/', site.url).toString() },
-    { name: service.data.title, url: spanishUrl }
-  ]),
-  ...(service.data.faqs.length > 0 ? [faqSchema(service.data.faqs)] : [])
+    { name: spanishCopy.title, url: spanishUrl }
+  ])
 ];
 ---
 
 <BaseLayout
-  title={`${service.data.title} en Espanol`}
-  description={`Orientacion en espanol sobre ${service.data.title.toLowerCase()} con Dinerofacil LLC, incluyendo documentos, requisitos, pago estimado y proximos pasos.`}
+  title={`${spanishCopy.title} | Dinerofacil LLC`}
+  description={`${spanishCopy.summary} Orientacion en espanol con Dinerofacil LLC.`}
   canonical={`/es/services/${service.data.slug}/`}
   schema={schema}
 >
   <Hero
     eyebrow="Servicio hipotecario"
-    title={`${service.data.title} en Florida`}
+    title={spanishCopy.title}
     lead="Maria puede explicarle esta opcion hipotecaria en espanol y ayudarle a comparar documentos, requisitos, pago estimado y alternativas."
-    primaryHref="/contact/"
+    primaryHref="/es/contact/"
     primaryLabel="Contactar a Maria"
-    secondaryHref={site.phoneHref}
-    secondaryLabel={`Llamar ${site.phone}`}
+    secondaryHref="/es/services/"
+    secondaryLabel="Ver servicios"
   />
 
   <section class="section content-section" aria-label={`${service.data.title} en espanol`}>
     <div class="container content-section__inner">
       <h2>Ayuda en espanol</h2>
-      <p>{service.data.summary}</p>
+      <p>{spanishCopy.summary}</p>
       <p>
         Cada prestamo depende del prestatario, la propiedad, el programa, el prestamista y las reglas de aprobacion. Dinerofacil LLC puede ayudarle a entender que documentos preparar y que preguntas hacer antes de aplicar.
       </p>
@@ -61,15 +62,28 @@ const schema = [
     </div>
   </section>
 
-  <FaqList
-    eyebrow="Preguntas"
-    title={`Preguntas sobre ${service.data.title}`}
-    lead="Estas respuestas son informacion general. La aprobacion final depende de requisitos del programa, propiedad, prestatario y prestamista."
-    faqs={service.data.faqs}
-  />
+  <section class="section related-services" aria-labelledby="related-services-heading">
+    <div class="container">
+      <div class="related-services__header">
+        <p class="eyebrow">Mas servicios</p>
+        <h2 id="related-services-heading">Explore opciones hipotecarias en espanol</h2>
+      </div>
+      <div class="grid">
+        {allServices
+          .filter((item) => item.data.slug !== service.data.slug)
+          .slice(0, 6)
+          .map((item) => (
+            <article class="card related-card">
+              <h3><a href={`/es/services/${item.data.slug}/`}>{getSpanishServiceCopy(item.data.slug, item.data).title}</a></h3>
+              <p>{getSpanishServiceCopy(item.data.slug, item.data).summary}</p>
+            </article>
+          ))}
+      </div>
+    </div>
+  </section>
 
   <ContactPanel
-    title={`Hable con Maria sobre ${service.data.title}`}
+    title={`Hable con Maria sobre ${spanishCopy.title}`}
     text="Reciba orientacion clara en ingles o espanol antes de escoger un camino hipotecario."
   />
 </BaseLayout>
@@ -92,5 +106,43 @@ const schema = [
   .content-section__inner p {
     color: var(--color-muted);
     font-size: 1.05rem;
+  }
+
+  .related-services {
+    background: var(--color-soft);
+  }
+
+  .related-services__header {
+    margin-bottom: 28px;
+    max-width: 780px;
+  }
+
+  .related-services__header h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .related-card {
+    display: grid;
+    gap: 12px;
+  }
+
+  .related-card h3,
+  .related-card p {
+    margin: 0;
+  }
+
+  .related-card h3 {
+    font-size: 1.16rem;
+    line-height: 1.2;
+  }
+
+  .related-card a {
+    text-decoration: none;
+  }
+
+  .related-card p {
+    color: var(--color-muted);
   }
 </style>

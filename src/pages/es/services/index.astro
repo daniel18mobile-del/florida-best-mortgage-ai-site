@@ -4,6 +4,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import ContactPanel from '@components/ContactPanel.astro';
 import { site } from '@data/site';
+import { getSpanishServiceCopy } from '@data/spanish';
 import { breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
 
 const services = (await getCollection('services'))
@@ -36,8 +37,8 @@ const services = (await getCollection('services'))
     <div class="container grid">
       {services.map((service) => (
         <article class="card service-card">
-          <h2><a href={`/es/services/${service.data.slug}/`}>{service.data.title}</a></h2>
-          <p>{service.data.summary}</p>
+          <h2><a href={`/es/services/${service.data.slug}/`}>{getSpanishServiceCopy(service.data.slug, service.data).title}</a></h2>
+          <p>{getSpanishServiceCopy(service.data.slug, service.data).summary}</p>
         </article>
       ))}
     </div>

@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import CtaBand from '@components/CtaBand.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { getSpanishBlogCopy } from '@data/spanish';
+import { blogPostingSchema, breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const spanishCopy = getSpanishBlogCopy(post.data.slug, post.data);
+const postUrl = new URL(`/es/blog/${post.data.slug}/`, site.url).toString();
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('es-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  }).format(date);
+---
+
+<BaseLayout
+  title={`${spanishCopy.title} | Dinerofacil LLC`}
+  description={spanishCopy.description}
+  canonical={`/es/blog/${post.data.slug}/`}
+  ogType="article"
+  schema={[
+    mortgageBrokerSchema(),
+    breadcrumbSchema([
+      { name: 'Espanol', url: new URL('/es/', site.url).toString() },
+      { name: 'Blog', url: new URL('/es/blog/', site.url).toString() },
+      { name: spanishCopy.title, url: postUrl }
+    ]),
+    blogPostingSchema({
+      title: spanishCopy.title,
+      description: spanishCopy.description,
+      url: postUrl,
+      publishDate: post.data.publishDate,
+      updatedDate: post.data.updatedDate
+    })
+  ]}
+>
+  <Hero
+    eyebrow={`Publicado ${formatDate(post.data.publishDate)}`}
+    title={spanishCopy.title}
+    lead={spanishCopy.description}
+    primaryHref="/es/contact/"
+    primaryLabel="Preguntar a Maria"
+    secondaryHref="/es/blog/"
+    secondaryLabel="Volver al blog"
+  />
+
+  <section class="section post-content" aria-label={`${spanishCopy.title} articulo`}>
+    <div class="container post-content__inner">
+      {post.data.tags.length > 0 && (
+        <ul class="post-content__tags" aria-label={`${spanishCopy.title} tags`}>
+          {post.data.tags.map((tag) => <li>{tag}</li>)}
+        </ul>
+      )}
+      {post.data.updatedDate && (
+        <p class="post-content__updated">Actualizado {formatDate(post.data.updatedDate)}</p>
+      )}
+      {spanishCopy.sections.map((section) => <p>{section}</p>)}
+
+      <h2>Como prepararse</h2>
+      <p>
+        Reuna documentos de ingreso, activos, identificacion, informacion de la propiedad y cualquier cotizacion de seguro disponible. En Florida, taxes, homeowners insurance, flood insurance, HOA y condo dues pueden afectar el pago estimado.
+      </p>
+
+      <h2>Hable con Maria</h2>
+      <p>
+        Maria Zuluaga puede revisar sus metas, explicar opciones en ingles o espanol y ayudarle a preparar los proximos pasos antes de comprar, refinanciar o usar home equity.
+      </p>
+
+      <p><a href={`/blog/${post.data.slug}/`}>Ver version completa en ingles</a></p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Necesita orientacion para su situacion?"
+    text="Maria puede ayudarle a revisar documentos, preaprobacion y opciones de prestamo antes de avanzar."
+    primaryHref="/es/contact/"
+    primaryLabel="Contactar a Maria"
+    secondaryHref={site.phoneHref}
+    secondaryLabel={`Llamar ${site.phone}`}
+  />
+
+  <ContactPanel
+    title="Hable con Maria Zuluaga"
+    text="Reciba orientacion clara en espanol para su compra, refinanciamiento o pregunta hipotecaria."
+  />
+</BaseLayout>
+
+<style>
+  .post-content {
+    background: #ffffff;
+  }
+
+  .post-content__inner {
+    max-width: 820px;
+  }
+
+  .post-content__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0 0 24px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .post-content__tags li {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-soft);
+    color: var(--color-muted);
+    font-size: 0.86rem;
+    font-weight: 750;
+    padding: 0.35rem 0.55rem;
+  }
+
+  .post-content__updated {
+    color: var(--color-muted);
+    font-size: 0.95rem;
+    font-weight: 750;
+  }
+
+  .post-content__inner h2 {
+    margin: 2.2rem 0 0.8rem;
+    font-size: clamp(1.55rem, 3vw, 2.25rem);
+    line-height: 1.12;
+  }
+
+  .post-content__inner p {
+    color: var(--color-muted);
+    font-size: 1.05rem;
+  }
+</style>
