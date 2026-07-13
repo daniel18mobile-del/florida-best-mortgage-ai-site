@@ -4,16 +4,17 @@ import { site } from '@data/site';
 
 const pathname = Astro.url.pathname;
 const isSpanishPage = pathname === '/es/' || pathname.startsWith('/es/');
+const spanishNavItems = [
+  { key: 'home', label: 'Inicio', href: '/es/' },
+  { key: 'services', label: 'Servicios', href: '/es/services/' },
+  { key: 'calculators', label: 'Calculadoras', href: '/calculators/' },
+  { key: 'about', label: 'Nosotros', href: '/es/about/' },
+  { key: 'blog', label: 'Blog', href: '/blog/' },
+  { key: 'contact', label: 'Contacto', href: '/es/contact/' }
+];
 const navItems = isSpanishPage
-  ? [
-      { label: 'Inicio', href: '/es/' },
-      { label: 'Servicios', href: '/es/services/' },
-      { label: 'Calculadoras', href: '/calculators/' },
-      { label: 'Nosotros', href: '/es/about/' },
-      { label: 'Blog', href: '/blog/' },
-      { label: 'Contacto', href: '/es/contact/' }
-    ]
-  : primaryNav;
+  ? spanishNavItems
+  : primaryNav.map((item) => ({ ...item, key: item.label.toLowerCase() }));
 
 const spanishRoutes = new Set(['/about/', '/contact/', '/services/']);
 const languageHref = (() => {
@@ -56,7 +57,7 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
       <ul class="site-nav__list">
         {navItems.map((item) => (
           <li>
-            <a href={item.href}>{item.label}</a>
+            <a href={item.href} data-nav-key={item.key}>{item.label}</a>
           </li>
         ))}
       </ul>
@@ -67,6 +68,7 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
         href={languageHref}
         aria-label={isSpanishPage ? 'Switch to English' : 'Ver sitio en Espanol'}
         aria-current={!isSpanishPage ? 'page' : undefined}
+        data-language-toggle
       >
         {languageLabel}
       </a>
@@ -79,3 +81,102 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
     </div>
   </div>
 </header>
+
+<script is:inline>
+  (() => {
+    const spanishNav = {
+      home: { label: 'Inicio', href: '/es/' },
+      services: { label: 'Servicios', href: '/es/services/' },
+      calculators: { label: 'Calculadoras', href: '/calculators/' },
+      about: { label: 'Nosotros', href: '/es/about/' },
+      blog: { label: 'Blog', href: '/blog/' },
+      contact: { label: 'Contacto', href: '/es/contact/' }
+    };
+
+    const englishNav = {
+      home: { label: 'Home', href: '/' },
+      services: { label: 'Services', href: '/services/' },
+      calculators: { label: 'Calculators', href: '/calculators/' },
+      about: { label: 'About', href: '/about/' },
+      blog: { label: 'Blog', href: '/blog/' },
+      contact: { label: 'Contact', href: '/contact/' }
+    };
+
+    const spanishEquivalent = {
+      '/': '/es/',
+      '/services/': '/es/services/',
+      '/about/': '/es/about/',
+      '/contact/': '/es/contact/'
+    };
+
+    const englishEquivalent = {
+      '/es/': '/',
+      '/es/services/': '/services/',
+      '/es/about/': '/about/',
+      '/es/contact/': '/contact/'
+    };
+
+    const path = window.location.pathname;
+    const isSpanishPath = path === '/es/' || path.startsWith('/es/');
+    const storedLanguage = window.localStorage.getItem('fbm-language');
+    const useSpanishHeader = isSpanishPath || storedLanguage === 'es';
+
+    if (isSpanishPath) {
+      window.localStorage.setItem('fbm-language', 'es');
+    }
+
+    let currentLanguage = useSpanishHeader ? 'es' : 'en';
+
+    const applyLanguage = (language) => {
+      currentLanguage = language;
+      const nav = language === 'es' ? spanishNav : englishNav;
+
+      document.querySelectorAll('[data-nav-key]').forEach((link) => {
+        const item = nav[link.dataset.navKey];
+        if (!item) return;
+        link.textContent = item.label;
+        link.setAttribute('href', item.href);
+      });
+
+      const brand = document.querySelector('.site-brand');
+      if (brand) {
+        brand.setAttribute('href', language === 'es' ? '/es/' : '/');
+        brand.setAttribute(
+          'aria-label',
+          language === 'es' ? 'Dinerofacil LLC inicio en Espanol' : 'Dinerofacil LLC home'
+        );
+      }
+
+      const contactButton = document.querySelector('.site-header__action');
+      if (contactButton) {
+        contactButton.setAttribute('href', language === 'es' ? '/es/contact/' : '/contact/');
+        contactButton.textContent = language === 'es' ? 'Contacto' : 'Contact';
+      }
+
+      const languageToggle = document.querySelector('[data-language-toggle]');
+      if (languageToggle) {
+        const target = language === 'es' ? englishEquivalent[path] || path : spanishEquivalent[path] || '/es/';
+        languageToggle.setAttribute('href', target);
+        languageToggle.textContent = language === 'es' ? 'English' : 'Espanol';
+        languageToggle.setAttribute(
+          'aria-label',
+          language === 'es' ? 'Switch to English' : 'Ver sitio en Espanol'
+        );
+        languageToggle.classList.toggle('site-header__language--active', language !== 'es');
+        languageToggle.removeAttribute('aria-current');
+      }
+    };
+
+    applyLanguage(useSpanishHeader ? 'es' : 'en');
+
+    document.querySelector('[data-language-toggle]')?.addEventListener('click', (event) => {
+      const nextLanguage = currentLanguage === 'es' ? 'en' : 'es';
+      window.localStorage.setItem('fbm-language', nextLanguage);
+
+      if (nextLanguage === 'en' && englishEquivalent[path] == null) {
+        event.preventDefault();
+        applyLanguage('en');
+      }
+    });
+  })();
+</script>
