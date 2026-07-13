@@ -16,14 +16,14 @@ const address = {
 
 const advisorImageUrl = new URL(site.advisor.image.src, site.url).toString();
 
-export function mortgageBrokerSchema() {
+export function mortgageBrokerSchema(options: { description?: string } = {}) {
   return {
     '@context': 'https://schema.org',
     '@type': 'MortgageBroker',
     name: site.name,
     legalName: site.legalName,
     url: site.url,
-    description: site.description,
+    description: options.description ?? site.description,
     telephone: site.phone,
     email: site.email,
     image: advisorImageUrl,

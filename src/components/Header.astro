@@ -33,6 +33,12 @@ const languageHref = (() => {
 const languageLabel = isSpanishPage ? 'English' : 'Espanol';
 const brandHref = isSpanishPage ? '/es/' : '/';
 const brandAriaLabel = isSpanishPage ? `${site.name} inicio en Espanol` : `${site.name} home`;
+const brandTagline = isSpanishPage ? 'Orientacion hipotecaria en Florida' : 'Florida mortgage guidance';
+const skipLabel = isSpanishPage ? 'Saltar al contenido' : 'Skip to content';
+const navAriaLabel = isSpanishPage ? 'Navegacion principal' : 'Primary navigation';
+const actionsAriaLabel = isSpanishPage ? 'Opciones de contacto' : 'Contact actions';
+const phoneAriaLabel = isSpanishPage ? `Llamar a ${site.name} al ${site.phone}` : `Call ${site.name} at ${site.phone}`;
+const contactAriaLabel = isSpanishPage ? `Contactar a ${site.name}` : `Contact ${site.name}`;
 const contactHref = isSpanishPage ? '/es/contact/' : '/contact/';
 const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
 ---
@@ -45,15 +51,15 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
     </div>
   </div>
   <div class="container site-header__inner">
-    <a class="skip-link" href="#main-content">Skip to content</a>
+    <a class="skip-link" href="#main-content">{skipLabel}</a>
     <a class="site-brand" href={brandHref} aria-label={brandAriaLabel}>
       <span class="site-brand__mark" aria-hidden="true">DF</span>
       <span class="site-brand__text">
         <span>{site.name}</span>
-        <small>Florida mortgage guidance</small>
+        <small>{brandTagline}</small>
       </span>
     </a>
-    <nav class="site-nav" aria-label="Primary navigation">
+    <nav class="site-nav" aria-label={navAriaLabel}>
       <ul class="site-nav__list">
         {navItems.map((item) => (
           <li>
@@ -62,7 +68,7 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
         ))}
       </ul>
     </nav>
-    <div class="site-header__actions" aria-label="Contact actions">
+    <div class="site-header__actions" aria-label={actionsAriaLabel}>
       <a
         class:list={['site-header__language', { 'site-header__language--active': !isSpanishPage }]}
         href={languageHref}
@@ -71,10 +77,10 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
       >
         {languageLabel}
       </a>
-      <a class="site-header__phone" href={site.phoneHref} aria-label={`Call ${site.name} at ${site.phone}`}>
+      <a class="site-header__phone" href={site.phoneHref} aria-label={phoneAriaLabel}>
         {site.phone}
       </a>
-      <a class="button site-header__action" href={contactHref} aria-label={`Contact ${site.name}`}>
+      <a class="button site-header__action" href={contactHref} aria-label={contactAriaLabel}>
         {contactLabel}
       </a>
     </div>
