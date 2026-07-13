@@ -4,6 +4,16 @@ import { site } from '@data/site';
 
 const pathname = Astro.url.pathname;
 const isSpanishPage = pathname === '/es/' || pathname.startsWith('/es/');
+const navItems = isSpanishPage
+  ? [
+      { label: 'Inicio', href: '/es/' },
+      { label: 'Servicios', href: '/es/services/' },
+      { label: 'Calculadoras', href: '/calculators/' },
+      { label: 'Nosotros', href: '/es/about/' },
+      { label: 'Blog', href: '/blog/' },
+      { label: 'Contacto', href: '/es/contact/' }
+    ]
+  : primaryNav;
 
 const spanishRoutes = new Set(['/about/', '/contact/', '/services/']);
 const languageHref = (() => {
@@ -20,6 +30,10 @@ const languageHref = (() => {
 })();
 
 const languageLabel = isSpanishPage ? 'English' : 'Espanol';
+const brandHref = isSpanishPage ? '/es/' : '/';
+const brandAriaLabel = isSpanishPage ? `${site.name} inicio en Espanol` : `${site.name} home`;
+const contactHref = isSpanishPage ? '/es/contact/' : '/contact/';
+const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
 ---
 
 <header class="site-header">
@@ -31,7 +45,7 @@ const languageLabel = isSpanishPage ? 'English' : 'Espanol';
   </div>
   <div class="container site-header__inner">
     <a class="skip-link" href="#main-content">Skip to content</a>
-    <a class="site-brand" href="/" aria-label={`${site.name} home`}>
+    <a class="site-brand" href={brandHref} aria-label={brandAriaLabel}>
       <span class="site-brand__mark" aria-hidden="true">DF</span>
       <span class="site-brand__text">
         <span>{site.name}</span>
@@ -40,7 +54,7 @@ const languageLabel = isSpanishPage ? 'English' : 'Espanol';
     </a>
     <nav class="site-nav" aria-label="Primary navigation">
       <ul class="site-nav__list">
-        {primaryNav.map((item) => (
+        {navItems.map((item) => (
           <li>
             <a href={item.href}>{item.label}</a>
           </li>
@@ -59,8 +73,8 @@ const languageLabel = isSpanishPage ? 'English' : 'Espanol';
       <a class="site-header__phone" href={site.phoneHref} aria-label={`Call ${site.name} at ${site.phone}`}>
         {site.phone}
       </a>
-      <a class="button site-header__action" href="/contact/" aria-label={`Contact ${site.name}`}>
-        Contact
+      <a class="button site-header__action" href={contactHref} aria-label={`Contact ${site.name}`}>
+        {contactLabel}
       </a>
     </div>
   </div>
