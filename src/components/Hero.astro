@@ -38,7 +38,7 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
       muted
       loop
       playsinline
-      preload="metadata"
+      preload="auto"
       poster={posterSrc}
       aria-hidden="true"
     >
@@ -254,12 +254,6 @@ const hasActions = hasPrimaryAction || hasSecondaryAction;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero__video {
-      display: none;
-    }
-  }
-
-  @media (max-width: 760px) {
     .hero__video {
       display: none;
     }

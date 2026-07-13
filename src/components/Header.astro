@@ -57,7 +57,7 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
       <ul class="site-nav__list">
         {navItems.map((item) => (
           <li>
-            <a href={item.href} data-nav-key={item.key}>{item.label}</a>
+            <a href={item.href}>{item.label}</a>
           </li>
         ))}
       </ul>
@@ -68,7 +68,6 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
         href={languageHref}
         aria-label={isSpanishPage ? 'Switch to English' : 'Ver sitio en Espanol'}
         aria-current={!isSpanishPage ? 'page' : undefined}
-        data-language-toggle
       >
         {languageLabel}
       </a>
@@ -81,158 +80,3 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
     </div>
   </div>
 </header>
-
-<script is:inline>
-  (() => {
-    const spanishNav = {
-      home: { label: 'Inicio', href: '/es/' },
-      services: { label: 'Servicios', href: '/es/services/' },
-      calculators: { label: 'Calculators', href: '/calculators/' },
-      about: { label: 'Nosotros', href: '/es/about/' },
-      blog: { label: 'Blog', href: '/blog/' },
-      contact: { label: 'Contacto', href: '/es/contact/' }
-    };
-
-    const englishNav = {
-      home: { label: 'Home', href: '/' },
-      services: { label: 'Services', href: '/services/' },
-      calculators: { label: 'Calculators', href: '/calculators/' },
-      about: { label: 'About', href: '/about/' },
-      blog: { label: 'Blog', href: '/blog/' },
-      contact: { label: 'Contact', href: '/contact/' }
-    };
-
-    const spanishEquivalent = {
-      '/': '/es/',
-      '/services/': '/es/services/',
-      '/about/': '/es/about/',
-      '/contact/': '/es/contact/'
-    };
-
-    const englishEquivalent = {
-      '/es/': '/',
-      '/es/services/': '/services/',
-      '/es/about/': '/about/',
-      '/es/contact/': '/contact/'
-    };
-
-    const normalizePath = (value) => (value.endsWith('/') ? value : `${value}/`);
-
-    const spanishPathFor = (value) => {
-      const normalized = normalizePath(value);
-      if (normalized === '/es/' || normalized.startsWith('/es/')) return normalized;
-      if (spanishEquivalent[normalized]) return spanishEquivalent[normalized];
-      if (normalized.startsWith('/services/')) return `/es${normalized}`;
-      return normalized;
-    };
-
-    const englishPathFor = (value) => {
-      const normalized = normalizePath(value);
-      if (englishEquivalent[normalized]) return englishEquivalent[normalized];
-      if (normalized.startsWith('/es/services/')) return normalized.replace(/^\/es/, '');
-      return normalized;
-    };
-
-    const preserveUrlParts = (nextPath, url) => `${nextPath}${url.search}${url.hash}`;
-
-    const spanishUrlFor = (href) => {
-      const url = new URL(href, window.location.href);
-      if (url.origin !== window.location.origin) return href;
-      return preserveUrlParts(spanishPathFor(url.pathname), url);
-    };
-
-    const englishUrlFor = (href) => {
-      const url = new URL(href, window.location.href);
-      if (url.origin !== window.location.origin) return href;
-      return preserveUrlParts(englishPathFor(url.pathname), url);
-    };
-
-    const path = window.location.pathname;
-    const isSpanishPath = path === '/es/' || path.startsWith('/es/');
-    const storedLanguage = window.localStorage.getItem('fbm-language');
-    const useSpanishHeader = isSpanishPath || storedLanguage === 'es';
-    const spanishEquivalentPath = spanishPathFor(path);
-
-    if (!isSpanishPath && storedLanguage === 'es' && spanishEquivalentPath !== normalizePath(path)) {
-      window.location.replace(preserveUrlParts(spanishEquivalentPath, new URL(window.location.href)));
-      return;
-    }
-
-    if (isSpanishPath) {
-      window.localStorage.setItem('fbm-language', 'es');
-    }
-
-    let currentLanguage = useSpanishHeader ? 'es' : 'en';
-
-    const rewriteInternalLinks = (language) => {
-      document.querySelectorAll('a[href]').forEach((link) => {
-        const href = link.getAttribute('href');
-        if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:')) return;
-        if (link.hasAttribute('data-language-toggle')) return;
-
-        if (!link.dataset.originalHref) {
-          link.dataset.originalHref = href;
-        }
-
-        const originalHref = link.dataset.originalHref;
-        const nextHref = language === 'es' ? spanishUrlFor(originalHref) : englishUrlFor(originalHref);
-        link.setAttribute('href', nextHref);
-      });
-    };
-
-    const applyLanguage = (language) => {
-      currentLanguage = language;
-      const nav = language === 'es' ? spanishNav : englishNav;
-
-      document.querySelectorAll('[data-nav-key]').forEach((link) => {
-        const item = nav[link.dataset.navKey];
-        if (!item) return;
-        link.textContent = item.label;
-        link.setAttribute('href', item.href);
-      });
-
-      const brand = document.querySelector('.site-brand');
-      if (brand) {
-        brand.setAttribute('href', language === 'es' ? '/es/' : '/');
-        brand.setAttribute(
-          'aria-label',
-          language === 'es' ? 'Dinerofacil LLC inicio en Espanol' : 'Dinerofacil LLC home'
-        );
-      }
-
-      const contactButton = document.querySelector('.site-header__action');
-      if (contactButton) {
-        contactButton.setAttribute('href', language === 'es' ? '/es/contact/' : '/contact/');
-        contactButton.textContent = language === 'es' ? 'Contacto' : 'Contact';
-      }
-
-      const languageToggle = document.querySelector('[data-language-toggle]');
-      if (languageToggle) {
-        const target = language === 'es' ? englishEquivalent[path] || path : spanishEquivalent[path] || '/es/';
-        languageToggle.setAttribute('href', target);
-        languageToggle.textContent = language === 'es' ? 'English' : 'Espanol';
-        languageToggle.setAttribute(
-          'aria-label',
-          language === 'es' ? 'Switch to English' : 'Ver sitio en Espanol'
-        );
-        languageToggle.classList.toggle('site-header__language--active', language !== 'es');
-        languageToggle.removeAttribute('aria-current');
-      }
-
-      rewriteInternalLinks(language);
-    };
-
-    applyLanguage(useSpanishHeader ? 'es' : 'en');
-    document.addEventListener('DOMContentLoaded', () => applyLanguage(currentLanguage));
-
-    document.querySelector('[data-language-toggle]')?.addEventListener('click', (event) => {
-      const nextLanguage = currentLanguage === 'es' ? 'en' : 'es';
-      window.localStorage.setItem('fbm-language', nextLanguage);
-
-      if (nextLanguage === 'en' && englishPathFor(path) === normalizePath(path)) {
-        event.preventDefault();
-        applyLanguage('en');
-      }
-    });
-  })();
-</script>
