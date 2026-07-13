@@ -43,7 +43,7 @@ const contactHref = isSpanishPage ? '/es/contact/' : '/contact/';
 const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
 ---
 
-<header class="site-header">
+<header class:list={['site-header', { 'site-header--spanish': isSpanishPage }]}>
   <div class="site-header__top">
     <div class="container site-header__top-inner">
       <span>{site.nmls}</span>

@@ -353,6 +353,12 @@ select[aria-invalid="true"]:focus {
 
 .site-nav {
   min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.site-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .site-nav__list {
@@ -368,6 +374,7 @@ select[aria-invalid="true"]:focus {
 
 .site-nav__list a {
   display: inline-flex;
+  white-space: nowrap;
   border-radius: var(--radius);
   color: var(--color-muted);
   font-size: 0.95rem;
@@ -379,6 +386,48 @@ select[aria-invalid="true"]:focus {
 .site-nav__list a:hover {
   background: #eef5f8;
   color: var(--color-primary);
+}
+
+.site-header--spanish .site-header__inner {
+  gap: 12px;
+}
+
+.site-header--spanish .site-brand {
+  gap: 10px;
+}
+
+.site-header--spanish .site-brand__mark {
+  width: 40px;
+  height: 40px;
+}
+
+.site-header--spanish .site-brand__text small {
+  font-size: 0.72rem;
+}
+
+.site-header--spanish .site-nav__list {
+  flex-wrap: nowrap;
+  gap: 2px;
+}
+
+.site-header--spanish .site-nav__list a {
+  font-size: 0.9rem;
+  padding-inline: 0.48rem;
+}
+
+.site-header--spanish .site-header__actions {
+  gap: 7px;
+}
+
+.site-header--spanish .site-header__language,
+.site-header--spanish .site-header__phone,
+.site-header--spanish .site-header__action {
+  font-size: 0.88rem;
+}
+
+.site-header--spanish .site-header__language,
+.site-header--spanish .site-header__action {
+  padding-inline: 0.68rem;
 }
 
 .site-header__actions {
@@ -511,6 +560,10 @@ main {
 
   .site-nav__list {
     justify-content: flex-start;
+  }
+
+  .site-header--spanish .site-nav__list {
+    flex-wrap: wrap;
   }
 
   .site-header__actions,
