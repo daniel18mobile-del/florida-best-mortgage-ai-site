@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Hero from '@components/Hero.astro';
 import ContactPanel from '@components/ContactPanel.astro';
+import { heroMedia } from '@data/media';
 import { site } from '@data/site';
 import { breadcrumbSchema, mortgageBrokerSchema } from '@utils/schema';
 
@@ -31,6 +32,8 @@ const locations = (await getCollection('locations'))
     primaryLabel="Contactar a Maria"
     secondaryHref="/es/services/"
     secondaryLabel="Ver servicios"
+    videoSrc={heroMedia.videoSrc}
+    posterSrc={heroMedia.posterSrc}
   />
 
   <section class="section spanish-links" aria-labelledby="spanish-links-heading">
