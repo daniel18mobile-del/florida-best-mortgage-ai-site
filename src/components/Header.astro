@@ -116,16 +116,69 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
       '/es/contact/': '/contact/'
     };
 
+    const normalizePath = (value) => (value.endsWith('/') ? value : `${value}/`);
+
+    const spanishPathFor = (value) => {
+      const normalized = normalizePath(value);
+      if (normalized === '/es/' || normalized.startsWith('/es/')) return normalized;
+      if (spanishEquivalent[normalized]) return spanishEquivalent[normalized];
+      if (normalized.startsWith('/services/')) return `/es${normalized}`;
+      return normalized;
+    };
+
+    const englishPathFor = (value) => {
+      const normalized = normalizePath(value);
+      if (englishEquivalent[normalized]) return englishEquivalent[normalized];
+      if (normalized.startsWith('/es/services/')) return normalized.replace(/^\/es/, '');
+      return normalized;
+    };
+
+    const preserveUrlParts = (nextPath, url) => `${nextPath}${url.search}${url.hash}`;
+
+    const spanishUrlFor = (href) => {
+      const url = new URL(href, window.location.href);
+      if (url.origin !== window.location.origin) return href;
+      return preserveUrlParts(spanishPathFor(url.pathname), url);
+    };
+
+    const englishUrlFor = (href) => {
+      const url = new URL(href, window.location.href);
+      if (url.origin !== window.location.origin) return href;
+      return preserveUrlParts(englishPathFor(url.pathname), url);
+    };
+
     const path = window.location.pathname;
     const isSpanishPath = path === '/es/' || path.startsWith('/es/');
     const storedLanguage = window.localStorage.getItem('fbm-language');
     const useSpanishHeader = isSpanishPath || storedLanguage === 'es';
+    const spanishEquivalentPath = spanishPathFor(path);
+
+    if (!isSpanishPath && storedLanguage === 'es' && spanishEquivalentPath !== normalizePath(path)) {
+      window.location.replace(preserveUrlParts(spanishEquivalentPath, new URL(window.location.href)));
+      return;
+    }
 
     if (isSpanishPath) {
       window.localStorage.setItem('fbm-language', 'es');
     }
 
     let currentLanguage = useSpanishHeader ? 'es' : 'en';
+
+    const rewriteInternalLinks = (language) => {
+      document.querySelectorAll('a[href]').forEach((link) => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('tel:') || href.startsWith('mailto:')) return;
+        if (link.hasAttribute('data-language-toggle')) return;
+
+        if (!link.dataset.originalHref) {
+          link.dataset.originalHref = href;
+        }
+
+        const originalHref = link.dataset.originalHref;
+        const nextHref = language === 'es' ? spanishUrlFor(originalHref) : englishUrlFor(originalHref);
+        link.setAttribute('href', nextHref);
+      });
+    };
 
     const applyLanguage = (language) => {
       currentLanguage = language;
@@ -165,15 +218,18 @@ const contactLabel = isSpanishPage ? 'Contacto' : 'Contact';
         languageToggle.classList.toggle('site-header__language--active', language !== 'es');
         languageToggle.removeAttribute('aria-current');
       }
+
+      rewriteInternalLinks(language);
     };
 
     applyLanguage(useSpanishHeader ? 'es' : 'en');
+    document.addEventListener('DOMContentLoaded', () => applyLanguage(currentLanguage));
 
     document.querySelector('[data-language-toggle]')?.addEventListener('click', (event) => {
       const nextLanguage = currentLanguage === 'es' ? 'en' : 'es';
       window.localStorage.setItem('fbm-language', nextLanguage);
 
-      if (nextLanguage === 'en' && englishEquivalent[path] == null) {
+      if (nextLanguage === 'en' && englishPathFor(path) === normalizePath(path)) {
         event.preventDefault();
         applyLanguage('en');
       }
