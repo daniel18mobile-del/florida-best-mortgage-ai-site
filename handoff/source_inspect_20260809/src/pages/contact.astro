@@ -1,0 +1,94 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { site } from '@data/site';
+import { mortgageBrokerSchema } from '@utils/schema';
+
+const addressLine = `${site.address.street}, ${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
+---
+
+<BaseLayout
+  title="Contact Florida Best Mortgage"
+  description="Contact Florida Best Mortgage for Florida mortgage guidance from Maria Zuluaga by phone or email. No unsupported form submission required."
+  schema={mortgageBrokerSchema()}
+>
+  <Hero
+    eyebrow="Contact"
+    title="Talk with Florida Best Mortgage"
+    lead="Call or email Maria for guidance on purchase loans, preapproval, refinancing, FHA, VA, first-time buyer options, and home equity questions."
+    primaryHref={site.phoneHref}
+    primaryLabel={`Call ${site.phone}`}
+    secondaryHref={site.emailHref}
+    secondaryLabel={`Email ${site.advisor.name}`}
+  />
+
+  <section class="section direct-contact" aria-labelledby="direct-contact-heading">
+    <div class="container direct-contact__inner">
+      <div>
+        <p class="eyebrow">Direct contact</p>
+        <h2 id="direct-contact-heading">Reach Maria by phone or email</h2>
+        <p class="lead">Share your goals, timing, and the loan question you want to solve first.</p>
+      </div>
+      <div class="grid">
+        <article class="card contact-method">
+          <h3>Phone</h3>
+          <a href={site.phoneHref}>{site.phone}</a>
+        </article>
+        <article class="card contact-method">
+          <h3>Email</h3>
+          <a href={site.emailHref}>{site.email}</a>
+        </article>
+        <article class="card contact-method">
+          <h3>Office</h3>
+          <p>{addressLine}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <ContactPanel
+    title={`Contact ${site.advisor.name}`}
+    text="Use phone or email for Florida mortgage guidance. This page does not use an unsupported POST form."
+  />
+</BaseLayout>
+
+<style>
+  .direct-contact {
+    background: #ffffff;
+  }
+
+  .direct-contact__inner {
+    display: grid;
+    gap: 28px;
+  }
+
+  .direct-contact h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .direct-contact .lead {
+    margin: 14px 0 0;
+  }
+
+  .contact-method h3,
+  .contact-method p {
+    margin: 0;
+  }
+
+  .contact-method {
+    display: grid;
+    gap: 10px;
+  }
+
+  .contact-method a {
+    font-size: 1.05rem;
+    font-weight: 850;
+  }
+
+  .contact-method p {
+    color: var(--color-muted);
+  }
+</style>

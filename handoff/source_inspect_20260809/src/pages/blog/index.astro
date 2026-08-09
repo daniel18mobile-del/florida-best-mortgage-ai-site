@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import ContactPanel from '@components/ContactPanel.astro';
+import { mortgageBrokerSchema } from '@utils/schema';
+
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric'
+  }).format(date);
+---
+
+<BaseLayout
+  title="Florida Mortgage Blog"
+  description="Read Florida mortgage guidance on preapproval, buying a home, refinancing, and preparing for the loan process."
+  schema={mortgageBrokerSchema()}
+>
+  <Hero
+    eyebrow="Blog"
+    title="Florida mortgage articles"
+    lead="Practical guidance for buyers and homeowners preparing for mortgage decisions in Florida."
+    primaryHref="/contact/"
+    primaryLabel="Ask Maria a question"
+    secondaryHref="/services/"
+    secondaryLabel="View services"
+  />
+
+  <section class="section blog-index" aria-labelledby="blog-index-heading">
+    <div class="container">
+      <div class="blog-index__header">
+        <p class="eyebrow">Latest guidance</p>
+        <h2 id="blog-index-heading">Mortgage insights</h2>
+      </div>
+      <div class="grid">
+        {posts.map((post) => (
+          <article class="card post-card">
+            <p class="post-card__date">{formatDate(post.data.publishDate)}</p>
+            <h3><a href={`/blog/${post.data.slug}/`}>{post.data.title}</a></h3>
+            <p>{post.data.description}</p>
+            {post.data.tags.length > 0 && (
+              <ul aria-label={`${post.data.title} tags`}>
+                {post.data.tags.map((tag) => <li>{tag}</li>)}
+              </ul>
+            )}
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactPanel
+    title="Have a Florida mortgage question?"
+    text="Call or email for guidance specific to your purchase, refinance, or home equity goals."
+  />
+</BaseLayout>
+
+<style>
+  .blog-index__header {
+    margin-bottom: 28px;
+  }
+
+  .blog-index__header h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .post-card {
+    display: grid;
+    align-content: start;
+    gap: 12px;
+  }
+
+  .post-card h3,
+  .post-card p,
+  .post-card ul {
+    margin: 0;
+  }
+
+  .post-card h3 {
+    font-size: 1.22rem;
+    line-height: 1.2;
+  }
+
+  .post-card h3 a {
+    text-decoration: none;
+  }
+
+  .post-card p {
+    color: var(--color-muted);
+  }
+
+  .post-card__date {
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .post-card ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .post-card li {
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-soft);
+    color: var(--color-muted);
+    font-size: 0.86rem;
+    font-weight: 750;
+    padding: 0.35rem 0.55rem;
+  }
+</style>

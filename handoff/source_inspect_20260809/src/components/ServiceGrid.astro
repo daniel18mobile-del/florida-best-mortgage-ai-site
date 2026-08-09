@@ -1,0 +1,104 @@
+---
+type Service = {
+  title: string;
+  summary: string;
+  href: string;
+  ctaLabel?: string;
+};
+
+type Props = {
+  eyebrow?: string;
+  title?: string;
+  lead?: string;
+  services: Service[];
+};
+
+const { eyebrow, title, lead, services } = Astro.props;
+const hasServices = services.length > 0;
+---
+
+{hasServices && (
+  <section class="section service-grid" aria-labelledby={title ? 'service-grid-heading' : undefined}>
+    <div class="container">
+      {(eyebrow || title || lead) && (
+        <div class="service-grid__header">
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          {title && <h2 id="service-grid-heading">{title}</h2>}
+          {lead && <p class="lead">{lead}</p>}
+        </div>
+      )}
+
+      <div class="grid">
+        {services.map((service) => (
+          <article class="card service-card">
+            <h3>
+              <a href={service.href}>{service.title}</a>
+            </h3>
+            <p>{service.summary}</p>
+            <a class="service-card__link" href={service.href}>
+              {service.ctaLabel ?? 'Learn more'}
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .service-grid__header {
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+
+  .service-grid__header h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .service-grid__header .lead {
+    margin: 14px 0 0;
+  }
+
+  .service-card {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 14px;
+    overflow: hidden;
+  }
+
+  .service-card::before {
+    width: 44px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-secondary), #f2d68b);
+    content: "";
+  }
+
+  .service-card h3,
+  .service-card p {
+    margin: 0;
+  }
+
+  .service-card h3 {
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .service-card h3 a {
+    color: var(--color-primary-dark);
+    text-decoration: none;
+  }
+
+  .service-card p {
+    color: var(--color-muted);
+  }
+
+  .service-card__link {
+    margin-top: 4px;
+    color: var(--color-secondary);
+    font-weight: 800;
+  }
+</style>

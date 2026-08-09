@@ -1,0 +1,112 @@
+---
+import { site } from '@data/site';
+
+type Props = {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+};
+
+const {
+  eyebrow = 'Contact',
+  title = `Talk with ${site.advisor.name}`,
+  text = 'Get Florida mortgage guidance for your next purchase, refinance, or home equity question.'
+} = Astro.props;
+
+const addressLine = `${site.address.city}, ${site.address.region} ${site.address.postalCode}`;
+const emailSubject = encodeURIComponent('Florida mortgage guidance request');
+const emailBody = encodeURIComponent(`Hi ${site.advisor.name},\n\nI would like mortgage guidance for:\n\n`);
+const guidanceEmailHref = `${site.emailHref}?subject=${emailSubject}&body=${emailBody}`;
+---
+
+<section class="section contact-panel" aria-labelledby="contact-panel-heading">
+  <div class="container">
+    <div class="contact-panel__header">
+      <p class="eyebrow">{eyebrow}</p>
+      <h2 id="contact-panel-heading">{title}</h2>
+      <p class="lead">{text}</p>
+    </div>
+
+    <div class="grid contact-panel__grid">
+      <section class="card contact-panel__details" aria-labelledby="contact-details-heading">
+        <h3 id="contact-details-heading">Contact details</h3>
+        <address>
+          <a href={site.phoneHref}>{site.phone}</a>
+          <a href={site.emailHref}>{site.email}</a>
+          <span>{site.address.street}</span>
+          <span>{addressLine}</span>
+        </address>
+        <p>{site.nmls}</p>
+      </section>
+
+      <section class="card contact-panel__prompt" aria-labelledby="contact-prompt-heading">
+        <h3 id="contact-prompt-heading">Start a mortgage conversation</h3>
+        <p>
+          Call or email for guidance on loan options, preapproval, refinancing, or home equity questions in Florida.
+        </p>
+        <div class="actions contact-panel__actions">
+          <a class="button" href={site.phoneHref}>Call {site.phone}</a>
+          <a class="button button--secondary" href={guidanceEmailHref}>Email {site.advisor.name}</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-panel__header {
+    max-width: 760px;
+    margin-bottom: 28px;
+  }
+
+  .contact-panel__header h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    line-height: 1.05;
+  }
+
+  .contact-panel__header .lead {
+    margin: 14px 0 0;
+  }
+
+  .contact-panel__grid {
+    align-items: start;
+  }
+
+  .contact-panel__details {
+    display: grid;
+    gap: 18px;
+  }
+
+  .contact-panel__details h3,
+  .contact-panel__details p {
+    margin: 0;
+  }
+
+  .contact-panel__details address {
+    display: grid;
+    gap: 10px;
+    color: var(--color-muted);
+    font-style: normal;
+  }
+
+  .contact-panel__details p {
+    color: var(--color-muted);
+    font-weight: 750;
+  }
+
+  .contact-panel__prompt {
+    display: grid;
+    align-content: start;
+    gap: 18px;
+  }
+
+  .contact-panel__prompt h3,
+  .contact-panel__prompt p {
+    margin: 0;
+  }
+
+  .contact-panel__prompt p {
+    color: var(--color-muted);
+  }
+</style>
