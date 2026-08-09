@@ -19,11 +19,14 @@ const advisorImageUrl = new URL(site.advisor.image.src, site.url).toString();
 export function mortgageBrokerSchema(options: { description?: string } = {}) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'MortgageBroker',
+    // Schema.org does not define MortgageBroker as a type. FinancialService
+    // accurately describes the business while remaining validator-compatible.
+    '@type': 'FinancialService',
     name: site.name,
     legalName: site.legalName,
     url: site.url,
     description: options.description ?? site.description,
+    serviceType: 'Mortgage brokerage and loan guidance',
     telephone: site.phone,
     email: site.email,
     image: advisorImageUrl,
@@ -60,7 +63,7 @@ export function webPageSchema(page: {
     description: page.description,
     url: page.url,
     about: {
-      '@type': 'MortgageBroker',
+      '@type': 'FinancialService',
       name: site.name,
       legalName: site.legalName,
       identifier: [

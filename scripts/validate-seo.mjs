@@ -44,6 +44,13 @@ walk(dist);
 const failures = [];
 const titles = new Map();
 const descriptions = new Map();
+const internalLinkTargets = new Set();
+
+function normalizePath(path) {
+  if (!path || path === '/') return '/';
+  const withoutQuery = path.split(/[?#]/, 1)[0];
+  return withoutQuery.endsWith('/') ? withoutQuery : `${withoutQuery}/`;
+}
 
 for (const file of htmlFiles) {
   const rel = relative(dist, file).replaceAll('\\', '/');
@@ -59,6 +66,15 @@ for (const file of htmlFiles) {
   if (title && title.includes(`| ${brand} | ${brand}`)) failures.push(`${rel}: duplicate brand in title`);
   if (!description || description.length < 50) failures.push(`${rel}: missing useful description`);
   if (!canonical?.startsWith(`${siteUrl}/`)) failures.push(`${rel}: missing absolute canonical`);
+  if (canonical) {
+    const canonicalPath = normalizePath(new URL(canonical).pathname);
+    const expectedPath = normalizePath(rel === 'index.html'
+      ? '/'
+      : `/${rel.replace(/\\/g, '/').replace(/\/index\.html$/, '')}`);
+    if (canonicalPath !== expectedPath) {
+      failures.push(`${rel}: canonical does not match generated path (${canonicalPath} vs ${expectedPath})`);
+    }
+  }
   if (!ogTitle) failures.push(`${rel}: missing og:title`);
   if (!ogDescription) failures.push(`${rel}: missing og:description`);
   if (!ogImage || ogImage.includes('/images/og-florida-best-mortgage.jpg')) {
@@ -72,6 +88,18 @@ for (const file of htmlFiles) {
   if (description) {
     const decoded = decodeEntities(description);
     descriptions.set(decoded, [...(descriptions.get(decoded) ?? []), rel]);
+  }
+
+  for (const match of html.matchAll(/href="(\/[^"#?]*)/g)) {
+    internalLinkTargets.add(normalizePath(match[1]));
+  }
+}
+
+for (const file of htmlFiles) {
+  const rel = relative(dist, file).replaceAll('\\', '/');
+  const canonical = readFileSync(file, 'utf8').match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  if (canonical && !internalLinkTargets.has(normalizePath(new URL(canonical).pathname))) {
+    failures.push(`${rel}: canonical target has no internal incoming link`);
   }
 }
 
@@ -97,6 +125,12 @@ if (!robots.includes('LLMs: https://floridabestmortgage.com/llms.txt')) failures
 const blogHtml = readFileSync(join(dist, 'blog', 'florida-mortgage-preapproval-guide', 'index.html'), 'utf8');
 if (!blogHtml.includes('property="og:type" content="article"')) failures.push('Blog post missing article og:type');
 if (!blogHtml.includes('"@type":"BlogPosting"')) failures.push('Blog post missing BlogPosting schema');
+
+const allHtml = htmlFiles.map((file) => readFileSync(file, 'utf8')).join('\n');
+if (allHtml.match(/<script type="application\/ld\+json">[^<]*"@type":"MortgageBroker"/)) {
+  failures.push('Invalid MortgageBroker schema type found');
+}
+if (!allHtml.includes('"@type":"FinancialService"')) failures.push('Missing FinancialService schema');
 
 if (failures.length > 0) {
   console.error(failures.join('\n'));

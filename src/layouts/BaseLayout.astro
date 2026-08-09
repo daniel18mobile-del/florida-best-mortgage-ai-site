@@ -24,7 +24,13 @@ const {
   schema
 } = Astro.props;
 
-const canonicalUrl = new URL(canonical ?? Astro.url.pathname, site.url).toString();
+const canonicalPath = canonical ?? Astro.url.pathname;
+const canonicalUrl = new URL(canonicalPath, site.url);
+if (canonicalUrl.pathname !== '/' && !canonicalUrl.pathname.endsWith('/')) {
+  canonicalUrl.pathname += '/';
+}
+canonicalUrl.search = '';
+canonicalUrl.hash = '';
 const ogImageUrl = new URL(ogImage, site.url).toString();
 const pageTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
 const schemaItems = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
@@ -52,11 +58,11 @@ s0.parentNode.insertBefore(s1,s0);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalUrl} />
+    <link rel="canonical" href={canonicalUrl.toString()} />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:url" content={canonicalUrl.toString()} />
     <meta property="og:image" content={ogImageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />

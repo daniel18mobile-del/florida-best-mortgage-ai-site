@@ -2,3 +2,6 @@ RewriteEngine On
 
 RewriteCond %{HTTP_HOST} ^www\.floridabestmortgage\.com$ [NC]
 RewriteRule ^(.*)$ https://floridabestmortgage.com/$1 [R=301,L]
+
+# Keep legacy directory-index URLs from becoming duplicate pages.
+RewriteRule ^index/?$ https://floridabestmortgage.com/ [R=301,L,NE]
