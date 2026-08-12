@@ -87,6 +87,10 @@ const tools = [
               <input id="annual-insurance" type="number" min="0" step="100" value="3600" inputmode="decimal" />
             </label>
             <label>
+              Annual mortgage insurance rate (average planning estimate)
+              <input id="mortgage-insurance-rate" type="number" min="0" step="0.05" value="0.75" inputmode="decimal" />
+            </label>
+            <label>
               Monthly HOA/condo dues
               <input id="monthly-hoa" type="number" min="0" step="25" value="0" inputmode="decimal" />
             </label>
@@ -94,7 +98,7 @@ const tools = [
           <div class="tool-card__result" aria-live="polite">
             <span>Estimated monthly payment</span>
             <strong id="payment-result">$0</strong>
-            <small id="payment-breakdown">Principal and interest plus entered taxes, insurance, and HOA dues.</small>
+            <small id="payment-breakdown">Principal and interest plus entered taxes, insurance, mortgage insurance, and HOA dues.</small>
           </div>
         </article>
 
@@ -341,13 +345,19 @@ const tools = [
       : principal / Math.max(months, 1);
     const taxes = numberValue('annual-tax') / 12;
     const insurance = numberValue('annual-insurance') / 12;
+    const mortgageInsuranceRate = numberValue('mortgage-insurance-rate') / 100;
+    // Use a blended planning average for conventional mortgage insurance.
+    // Actual premiums vary with credit, LTV, loan type, and lender pricing.
+    const mortgageInsurance = downPayment < price * 0.2
+      ? principal * mortgageInsuranceRate / 12
+      : 0;
     const hoa = numberValue('monthly-hoa');
-    const total = principalAndInterest + taxes + insurance + hoa;
+    const total = principalAndInterest + taxes + insurance + mortgageInsurance + hoa;
 
     setText('payment-result', currency.format(total));
     setText(
       'payment-breakdown',
-      `${currency.format(principalAndInterest)} principal and interest + ${currency.format(taxes)} taxes + ${currency.format(insurance)} insurance + ${currency.format(hoa)} HOA/dues.`
+      `${currency.format(principalAndInterest)} principal and interest + ${currency.format(taxes)} taxes + ${currency.format(insurance)} insurance + ${currency.format(mortgageInsurance)} mortgage insurance${mortgageInsurance ? ' (blended average)' : ' (not estimated at 20%+ down)'} + ${currency.format(hoa)} HOA/dues.`
     );
   }
 
