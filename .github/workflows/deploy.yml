@@ -40,6 +40,9 @@ jobs:
         with:
           name: site-dist
           path: dist
+          # `.htaccess` is a required production redirect rule and is hidden
+          # by default by upload-artifact.
+          include-hidden-files: true
 
   deploy:
     needs: validate
